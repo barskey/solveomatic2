@@ -30,7 +30,7 @@ col_right = sg.Column([
 layout = [[col_left, col_right]]
 
 # create the window and show it without the plot
-window = sg.Window('Solve-O-Matic', layout, size=(480, 320))
+window = sg.Window('Solve-O-Matic', layout, size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
 
 # ---===--- Event LOOP Read and display frames, operate the GUI --- #
 cap = cv2.VideoCapture(0)                               # Setup the OpenCV capture device (webcam)
