@@ -3,6 +3,7 @@ import PySimpleGUI as sg            # Uncomment 1 to run on that framework
 # import PySimpleGUIWeb as sg       # has a known flicker problem that's being worked
 import cv2
 from vision2 import grab_colors
+import vision_params
 
 sg.theme('Dark Grey')
 #sg.set_options(element_padding=(0, 0))
@@ -48,6 +49,7 @@ while True:
     frame_resize = cv2.resize(frame_crop, (160, 160))  # resize to 160x160
 
     grab_colors(frame_resize)
+    print(vision_params.face_col)
     
     img_bytes = cv2.imencode('.png', frame_resize)[1].tobytes()     # Convert the image to PNG Bytes
     g.draw_image(location=(0, 160), data=img_bytes)
