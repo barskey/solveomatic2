@@ -260,7 +260,8 @@ def find_squares(bgrcap, n):
     for j in itr:
         # find contours
         # works for OpenCV 3.2 or higher. For versions < 3.2 omit im2 in the line below.
-        im2, contours, hierarchy = cv2.findContours(j, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        #im2, contours, hierarchy = cv2.findContours(j, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        contours, hierarchy = cv2.findContours(j, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         for n in range(len(contours)):
             approx = cv2.approxPolyDP(contours[n], sz // 2, True)
             # if the contour cannot be approximated by a quadrangle it is not a facelet square
