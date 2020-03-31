@@ -49,7 +49,7 @@ while True:
     frame_resize = cv2.resize(frame_crop, (160, 160))  # resize to 160x160
 
     if event == '__CALIBRATE__':
-        grab_colors()
+        grab_colors(frame_resize)
 
     img_bytes = cv2.imencode('.png', frame_resize)[1].tobytes()     # Convert the image to PNG Bytes
     g.draw_image(location=(0, 160), data=img_bytes)
