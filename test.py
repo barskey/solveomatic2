@@ -1,9 +1,9 @@
+import time
 import PySimpleGUI as sg            # Uncomment 1 to run on that framework
 # import PySimpleGUIQt as sg        # runs on Qt with no other changes
 # import PySimpleGUIWeb as sg       # has a known flicker problem that's being worked
 import cv2
 from vision2 import grab_colors
-import vision_params
 
 sg.theme('Dark Grey')
 #sg.set_options(element_padding=(0, 0))
@@ -24,7 +24,7 @@ g = sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(
 col_right = sg.Column([
     [sg.Text('')],
     [g],
-    [sg.Text('', size=(11, 1)), sg.Button('Calibrate')]
+    [sg.Text('', size=(5, 1)), sg.Quit(), sg.Button('Calibrate', key='__CALIBRATE__')]
 ])
 
 layout = [[col_left, col_right]]
@@ -37,7 +37,7 @@ cap = cv2.VideoCapture(0)                               # Setup the OpenCV captu
 
 while True:
     event, values = window.Read(timeout=20, timeout_key='timeout')
-    if event is None:
+    if event in ('Quit', None):
         break
     ret, frame = cap.read()                               # Read image from capture device (camera)
     #print(frame.shape)
@@ -48,8 +48,8 @@ while True:
     frame_crop = frame[0:y, edge:(x - edge)]  # [starty:endy, startx:endx]
     frame_resize = cv2.resize(frame_crop, (160, 160))  # resize to 160x160
 
-    grab_colors(frame_resize)
-    print(vision_params.face_col)
-    
+    if event == '__CALIBRATE__':
+        grab_colors()
+
     img_bytes = cv2.imencode('.png', frame_resize)[1].tobytes()     # Convert the image to PNG Bytes
     g.draw_image(location=(0, 160), data=img_bytes)

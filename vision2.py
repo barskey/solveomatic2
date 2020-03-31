@@ -330,8 +330,9 @@ def grab_colors(bgrcap):
 
     # the results supplied by getcolors are used in client_gui2.py for the "Webcam import"
     vision_params.face_hsv, vision_params.face_col = getcolors(cf, ef, acf, aef, m)
+    print(vision_params.face_col)
 
-    drawgrid(bgrcap, grid_N)
+    #drawgrid(bgrcap, grid_N)
 
     # show the windows
     #cv2.imshow('color_filter mask', cv2.resize(color_mask, (width // 2, height // 2)))
