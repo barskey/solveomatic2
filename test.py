@@ -47,7 +47,7 @@ while True:
     frame_crop = frame[0:y, edge:(x - edge)]  # [starty:endy, startx:endx]
     frame_resize = cv2.resize(frame_crop, (160, 160))  # resize to 160x160
 
-    #grab_colors(frame_resize)
+    grab_colors(frame_resize)
     
     img_bytes = cv2.imencode('.png', frame_resize)[1].tobytes()     # Convert the image to PNG Bytes
     g.draw_image(location=(0, 160), data=img_bytes)
