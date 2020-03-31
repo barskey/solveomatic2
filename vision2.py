@@ -332,13 +332,10 @@ def grab_colors(bgrcap):
     vision_params.face_hsv, vision_params.face_col = getcolors(cf, ef, acf, aef, m)
     print(vision_params.face_col)
 
-    drawgrid(bgrcap, grid_N)
+    #drawgrid(bgrcap, grid_N)
 
     # show the windows
     #cv2.imshow('color_filter mask', cv2.resize(color_mask, (width // 2, height // 2)))
     #cv2.imshow('white_filter mask', cv2.resize(white_mask, (width // 2, height // 2)))
     #cv2.imshow('black_filter mask', cv2.resize(black_mask, (width // 2, height // 2)))
     #cv2.imshow('Webcam - type "x" to quit.', bgrcap)
-
-
-cv2.destroyAllWindows()
