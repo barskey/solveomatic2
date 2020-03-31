@@ -119,7 +119,7 @@ def display_colorname(bgrcap, p):
         txtcol = (0, 0, 0)
     font = cv2.FONT_HERSHEY_SIMPLEX
     tz = cv2.getTextSize(col, font, 0.4, 1)[0]
-    cv2.putText(
+    bgrcap = cv2.putText(
         bgrcap, col, tuple(p - (tz[0] // 2, -tz[1] // 2)), font, 0.4, txtcol, 1)
 
 
