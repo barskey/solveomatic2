@@ -19,7 +19,7 @@ col_left = sg.Column([
     [sg.Sizer(200, 10)],
     [sg.Text('1.'), sg.Button('Scan Cube', size=(11, 1))],
     [sg.Text('2.'), sg.Combo(solveto, size=(11, 1), key='__SOLVETO__')],
-    [sg.Text('', size=(3, 1)), sg.Image('img/bg.png', size=(60, 60))],
+    [sg.Text('', size=(3, 1)), sg.Image('img/bg.png', size=(60, 60), key='__SOLVETOIMG__')],
     [sg.Text('3.'), sg.Button('Solve!', size=(11, 1), disabled=True)]
 ], element_justification='center')
 
@@ -43,8 +43,7 @@ while True:
     if event in ('Quit', None):
         break
 
-    print(values['__SOLVETO__'])
-    #window.find_element('__SOLVETOIMG__').image = ''
+    window.find_element('__SOLVETOIMG__').image = PATTERNS[values['__SOLVETO__']]
 
     frame = grab_colors()
 
