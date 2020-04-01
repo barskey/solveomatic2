@@ -23,11 +23,11 @@ layout_intro = [[
 ]]
 
 # ----- User Input window layout -----
-solveto_img = sg.Image('images/_solid.png', size=(50, 50), key='__SOLVETOIMG__')
+solveto_img = sg.Image('images/_solid.png', size=(50, 50), key='_SOLVETOIMG_')
 col_left = sg.Column([
     [sg.Sizer(200, 10)],
     [sg.Text('1.'), sg.Button('Scan Cube', size=(11, 1))],
-    [sg.Text('2.'), sg.Combo(list(PATTERNS.keys()), default_value='Solid Cube', key='__SOLVETO__')],
+    [sg.Text('2.'), sg.Combo(list(PATTERNS.keys()), default_value='Solid Cube', key='_SOLVETO_')],
     [sg.Text('', size=(3, 1)), solveto_img],
     [sg.Text('3.'), sg.Button('Solve!', size=(11, 1), disabled=True)]
 ])
@@ -37,7 +37,7 @@ g = sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(
 col_right = sg.Column([
     [sg.Sizer(200, 10)],
     [g],
-    [sg.Quit(), sg.Button('Calibrate', key='__CALIBRATE__')]
+    [sg.Quit(), sg.Button('Calibrate', key='_CALIBRATE_')]
 ], element_justification='center')
 
 layout_input = [[col_left, col_right]]
@@ -45,32 +45,35 @@ layout_input = [[col_left, col_right]]
 # ----- Calibration window layout -----
 # layout_calibrate = 
 
-# create the window
-window = sg.Window('Solve-O-Matic', layout_intro, size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
+def change_state(newstate):
+    window.Close()  # close old window
+    state = newstate
+    window = sg.Window('Solve-O-Matic', layouts[state], size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
 
 state = 0 # intro
 layouts = [layout_intro, layout_input]
 
-def change_state(newstate):
-    state = newstate
-    window.layout = layouts[state]
+# start in state 0
+window = sg.Window('Solve-O-Matic', layouts[state], size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
 
 # ---===--- Event LOOP Read and display frames, operate the GUI --- #
 while True:
-    event, values = window.Read(timeout=20, timeout_key='timeout')
-    if event in ('Quit', None):
+    button, values = window.Read(timeout=20, timeout_key='timeout')
+    if button in ('Quit', None):
         break
-    elif event == '__GO__':
+    elif button is '_GO_':
         change_state(1)
+    elif button is '_CALIBRATE_':
+        change_state(2)
 
-    if values.get('__SOLVETO__', None) is not None:
+    if state is 0:
+        pass
+    elif state is 1:
         i = 'images/{}'.format(PATTERNS[values['__SOLVETO__']][0])
-        solveto_img.Update(filename=i)
+        window.Element('_SOLVETOIMG_').Update(filename=i)
+        frame = grab_colors()
 
-    frame = grab_colors()
+        img_bytes = cv2.imencode('.png', frame)[1].tobytes()     # Convert the image to PNG Bytes
+        g.draw_image(location=(0, 160), data=img_bytes)
 
-    img_bytes = cv2.imencode('.png', frame)[1].tobytes()     # Convert the image to PNG Bytes
-    g.draw_image(location=(0, 160), data=img_bytes)
-
-    if event == '__CALIBRATE__':
-        frame_grab()
+window.Close()
