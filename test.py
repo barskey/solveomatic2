@@ -11,14 +11,14 @@ sg.theme('Dark Grey')
 
 title = sg.Text('Solve-O-Matic!')
 
+solveto_img = sg.Image('img/bg.png', size=(60, 60), key='__SOLVETOIMG__')
 col_left = sg.Column([
     [sg.Sizer(200, 10)],
     [sg.Text('1.'), sg.Button('Scan Cube', size=(11, 1))],
     [sg.Text('2.'), sg.Combo(list(PATTERNS.keys()), key='__SOLVETO__')],
-    [sg.Text('', size=(3, 1)), sg.Image('img/bg.png', size=(60, 60), key='__SOLVETOIMG__')],
+    [sg.Text('', size=(3, 1)), solveto_img],
     [sg.Text('3.'), sg.Button('Solve!', size=(11, 1), disabled=True)]
 ], element_justification='center')
-
 # define the canvas (graph) for showing camera and color boxes
 g = sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(160, 160), key='graph')
 
@@ -40,7 +40,7 @@ while True:
         break
 
     i = 'images/%s'.format('_solid.png')
-    window.find_element('__SOLVETOIMG__').image = i
+    solveto_img.Update(filename=i)
 
     frame = grab_colors()
 
