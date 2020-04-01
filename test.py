@@ -24,7 +24,7 @@ g = sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(
 col_right = sg.Column([
     [sg.Sizer(200, 10)],
     [g],
-    [sg.Text('', sg.Quit(), sg.Button('Calibrate', key='__CALIBRATE__')]
+    [sg.Quit(), sg.Button('Calibrate', key='__CALIBRATE__')]
 ], element_justification='center')
 
 layout = [[col_left, col_right]]
