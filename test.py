@@ -28,10 +28,10 @@ col_right = sg.Column([
     [sg.Quit(), sg.Button('Calibrate', key='__CALIBRATE__')]
 ], element_justification='center')
 
-layout_ = [[col_left, col_right]]
+layout_input = [[col_left, col_right]]
 
 # create the window and show it without the plot
-window = sg.Window('Solve-O-Matic', layout, size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
+window = sg.Window('Solve-O-Matic', layout_input, size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
 
 # ---===--- Event LOOP Read and display frames, operate the GUI --- #
 while True:
