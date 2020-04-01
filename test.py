@@ -32,21 +32,6 @@ layout = [[col_left, col_right]]
 # create the window and show it without the plot
 window = sg.Window('Solve-O-Matic', layout, size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
 
-#cap = cv2.VideoCapture(0)                               # Setup the OpenCV capture device (webcam)
-
-def frame_grab(frame_resize):
-    ret, frame = cap.read()                               # Read image from capture device (camera)
-    #print(frame.shape)
-    # crop frame to square, then resize
-    y = frame.shape[0]
-    x = frame.shape[1]
-    edge = int((x - y) / 2)
-    frame_crop = frame[0:y, edge:(x - edge)]  # [starty:endy, startx:endx]
-    frame_resize = cv2.resize(frame_crop, (160, 160))  # resize to 160x160
-    grab_colors(frame_resize)
-    img_bytes = cv2.imencode('.png', frame_resize)[1].tobytes()     # Convert the image to PNG Bytes
-    g.draw_image(location=(0, 160), data=img_bytes)
-
 # ---===--- Event LOOP Read and display frames, operate the GUI --- #
 while True:
     event, values = window.Read(timeout=20, timeout_key='timeout')
@@ -55,14 +40,7 @@ while True:
     
     frame = grab_colors()
 
-    # crop frame to square, then resize
-    y = frame.shape[0]
-    x = frame.shape[1]
-    edge = int((x - y) / 2)
-    frame_crop = frame[0:y, edge:(x - edge)]  # [starty:endy, startx:endx]
-    frame_resize = cv2.resize(frame_crop, (160, 160))  # resize to 160x160
-
-    img_bytes = cv2.imencode('.png', frame_resize)[1].tobytes()     # Convert the image to PNG Bytes
+    img_bytes = cv2.imencode('.png', frame)[1].tobytes()     # Convert the image to PNG Bytes
     g.draw_image(location=(0, 160), data=img_bytes)
 
     if event == '__CALIBRATE__':
