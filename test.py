@@ -10,6 +10,7 @@ from lookups import PATTERNS
 sg.theme('Dark Grey')
 #sg.set_options(element_padding=(0, 0))
 title = sg.Text('Solve-O-Matic!')
+window = None
 
 # ----- Intro Screen window layout -----
 layout_intro = [[
@@ -58,8 +59,8 @@ window = sg.Window('Solve-O-Matic', layouts[state], size=(480, 320), no_titlebar
 
 # ---===--- Event LOOP Read and display frames, operate the GUI --- #
 while True:
-    button, values = window.Read(timeout=20, timeout_key='timeout')
-    print(button)
+    button, values = window.Read(timeout=50, timeout_key='timeout')
+    
     if button in ('Quit', None):
         break
     elif button is 'Go':
