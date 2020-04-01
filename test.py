@@ -63,8 +63,9 @@ while True:
     elif event == '__GO__':
         change_state(1)
 
-    i = 'images/{}'.format(PATTERNS[values['__SOLVETO__']][0])
-    solveto_img.Update(filename=i)
+    if values.get('__SOLVETO__', None) is not None:
+        i = 'images/{}'.format(PATTERNS[values['__SOLVETO__']][0])
+        solveto_img.Update(filename=i)
 
     frame = grab_colors()
 
