@@ -288,7 +288,14 @@ def grab_colors():
     """Find the cube in the webcam picture and grab the colors of the facelets."""
     global cent, width, height, hsv, color_mask, white_mask
     cap = cv2.VideoCapture(0)
-    _, bgrcap = cap.read()
+    _, frame = cap.read()
+
+    # crop and resize the image to fit display
+    y = frame.shape[0]
+    x = frame.shape[1]
+    edge = int((x - y) / 2)
+    frame_crop = frame[0:y, edge:(x - edge)]  # [starty:endy, startx:endx]
+    bgrcap = cv2.resize(frame_crop, (160, 160))  # resize to 160x160
 
     height, width = bgrcap.shape[:2]
 
