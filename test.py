@@ -11,12 +11,10 @@ sg.theme('Dark Grey')
 
 title = sg.Text('Solve-O-Matic!')
 
-solveto = PATTERNS.keys()
-
 col_left = sg.Column([
     [sg.Sizer(200, 10)],
     [sg.Text('1.'), sg.Button('Scan Cube', size=(11, 1))],
-    [sg.Text('2.'), sg.Combo(solveto, size=(11, 1), key='__SOLVETO__')],
+    [sg.Text('2.'), sg.Combo(list(PATTERNS.keys()), key='__SOLVETO__')],
     [sg.Text('', size=(3, 1)), sg.Image('img/bg.png', size=(60, 60), key='__SOLVETOIMG__')],
     [sg.Text('3.'), sg.Button('Solve!', size=(11, 1), disabled=True)]
 ], element_justification='center')
