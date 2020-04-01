@@ -11,22 +11,21 @@ sg.theme('Dark Grey')
 title = sg.Text('Solve-O-Matic!')
 
 # define the canvas for showing camera and color boxes
-col_left = sg.Sizer(200, 200)
-col_left.layout = [
-    [sg.Text('')],
+col_left = sg.Column([
+    [sg.Sizer(200, 10)],
     [sg.Text('1.'), sg.Button('Scan Cube', size=(11, 1))],
     [sg.Text('2.'), sg.Button('Solve To', size=(11, 1))],
     [sg.Text('', size=(3, 1)), sg.Image('img/bg.png', size=(60, 60))],
     [sg.Text('3.'), sg.Button('Solve!', size=(11, 1), disabled=True)]
-]
+], element_justification='center')
 
 g = sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(160, 160), key='graph')
 
 col_right = sg.Column([
-    [sg.Text('')],
+    [sg.Sizer(200, 10)],
     [g],
-    [sg.Text('', size=(5, 1)), sg.Quit(), sg.Button('Calibrate', key='__CALIBRATE__')]
-])
+    [sg.Text('', sg.Quit(), sg.Button('Calibrate', key='__CALIBRATE__')]
+], element_justification='center')
 
 layout = [[col_left, col_right]]
 
