@@ -11,9 +11,7 @@ sg.theme('Dark Grey')
 
 title = sg.Text('Solve-O-Matic!')
 
-solveto = []
-for p in PATTERNS.keys():
-    solveto.append(p)
+solveto = PATTERNS.keys()
 
 col_left = sg.Column([
     [sg.Sizer(200, 10)],
