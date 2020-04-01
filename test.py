@@ -10,7 +10,6 @@ from lookups import PATTERNS
 sg.theme('Dark Grey')
 #sg.set_options(element_padding=(0, 0))
 title = sg.Text('Solve-O-Matic!')
-window = None
 
 # ----- Intro Screen window layout -----
 layout_intro = [[
@@ -47,6 +46,7 @@ layout_input = [[col_left, col_right]]
 # layout_calibrate = 
 
 def change_state(newstate):
+    global window
     window.Close()  # close old window
     state = newstate
     window = sg.Window('Solve-O-Matic', layouts[state], size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
