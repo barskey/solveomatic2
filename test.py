@@ -11,10 +11,14 @@ sg.theme('Dark Grey')
 
 title = sg.Text('Solve-O-Matic!')
 
+solveto = []
+for p in PATTERNS.keys():
+    solveto.append(p)
+
 col_left = sg.Column([
     [sg.Sizer(200, 10)],
     [sg.Text('1.'), sg.Button('Scan Cube', size=(11, 1))],
-    [sg.Text('2.'), sg.Combo(PATTERNS.keys(), size=(11, 1))],
+    [sg.Text('2.'), sg.Combo(solveto, size=(11, 1), key='__SOLVETO__')],
     [sg.Text('', size=(3, 1)), sg.Image('img/bg.png', size=(60, 60))],
     [sg.Text('3.'), sg.Button('Solve!', size=(11, 1), disabled=True)]
 ], element_justification='center')
@@ -38,7 +42,9 @@ while True:
     event, values = window.Read(timeout=20, timeout_key='timeout')
     if event in ('Quit', None):
         break
-    
+    if event == '__SOLVETO__':
+        print(values)
+
     frame = grab_colors()
 
     img_bytes = cv2.imencode('.png', frame)[1].tobytes()     # Convert the image to PNG Bytes
