@@ -15,7 +15,7 @@ solveto_img = sg.Image('img/bg.png', size=(60, 60), key='__SOLVETOIMG__')
 col_left = sg.Column([
     [sg.Sizer(200, 10)],
     [sg.Text('1.'), sg.Button('Scan Cube', size=(11, 1))],
-    [sg.Text('2.'), sg.Combo(list(PATTERNS.keys()), key='__SOLVETO__')],
+    [sg.Text('2.'), sg.Combo(list(PATTERNS.keys()), default_value='Solid Cube', key='__SOLVETO__')],
     [sg.Text('', size=(3, 1)), solveto_img],
     [sg.Text('3.'), sg.Button('Solve!', size=(11, 1), disabled=True)]
 ], element_justification='center')
@@ -39,7 +39,7 @@ while True:
     if event in ('Quit', None):
         break
 
-    i = 'images/{}'.format('_solid.png')
+    i = 'images/{}'.format(PATTERNS[values['__SOLVETO__']][0])
     solveto_img.Update(filename=i)
 
     frame = grab_colors()
