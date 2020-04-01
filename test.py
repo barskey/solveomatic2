@@ -39,7 +39,7 @@ while True:
     if event in ('Quit', None):
         break
 
-    i = 'images/%s'.format('_solid.png')
+    i = 'images/{}'.format('_solid.png')
     solveto_img.Update(filename=i)
 
     frame = grab_colors()
