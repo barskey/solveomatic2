@@ -37,7 +37,7 @@ g = sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(
 col_right = sg.Column([
     [sg.Sizer(200, 10)],
     [g],
-    [sg.Quit(), sg.Button('Calibrate']
+    [sg.Quit(), sg.Button('Calibrate')]
 ], element_justification='center')
 
 layout_input = [[col_left, col_right]]
