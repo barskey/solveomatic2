@@ -39,7 +39,8 @@ while True:
     if event in ('Quit', None):
         break
 
-    window.find_element('__SOLVETOIMG__').image = PATTERNS[values['__SOLVETO__']]
+    i = 'images/%s'.format(PATTERNS[values['__SOLVETO__']][0])
+    window.find_element('__SOLVETOIMG__').image = i
 
     frame = grab_colors()
 
