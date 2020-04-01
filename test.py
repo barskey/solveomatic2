@@ -18,7 +18,7 @@ layout_intro = [[
         [sg.Text('Insert Cube')],
         [sg.Text('to get started...')],
         [sg.Text('')],
-        [sg.Button('Go', size=(11,2)]
+        [sg.Button('Go', size=(11,2))]
     ], element_justification='center')
 ]]
 
