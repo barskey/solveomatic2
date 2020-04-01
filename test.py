@@ -4,21 +4,22 @@ import PySimpleGUI as sg            # Uncomment 1 to run on that framework
 # import PySimpleGUIWeb as sg       # has a known flicker problem that's being worked
 import cv2
 from vision2 import grab_colors
+from lookups import PATTERNS
 
 sg.theme('Dark Grey')
 #sg.set_options(element_padding=(0, 0))
 
 title = sg.Text('Solve-O-Matic!')
 
-# define the canvas for showing camera and color boxes
 col_left = sg.Column([
     [sg.Sizer(200, 10)],
     [sg.Text('1.'), sg.Button('Scan Cube', size=(11, 1))],
-    [sg.Text('2.'), sg.Button('Solve To', size=(11, 1))],
+    [sg.Text('2.'), sg.Combo(PATTERNS.keys(), size=(11, 1))],
     [sg.Text('', size=(3, 1)), sg.Image('img/bg.png', size=(60, 60))],
     [sg.Text('3.'), sg.Button('Solve!', size=(11, 1), disabled=True)]
 ], element_justification='center')
 
+# define the canvas (graph) for showing camera and color boxes
 g = sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(160, 160), key='graph')
 
 col_right = sg.Column([
