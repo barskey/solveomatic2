@@ -59,6 +59,7 @@ window = sg.Window('Solve-O-Matic', layouts[state], size=(480, 320), no_titlebar
 # ---===--- Event LOOP Read and display frames, operate the GUI --- #
 while True:
     button, values = window.Read(timeout=20, timeout_key='timeout')
+    print(button)
     if button in ('Quit', None):
         break
     elif button is '_GO_':
