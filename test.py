@@ -18,16 +18,16 @@ layout_intro = [[
         [sg.Text('Insert Cube')],
         [sg.Text('to get started...')],
         [sg.Text('')],
-        [sg.Button('Go', size=(11,2), key='__GO__')]
+        [sg.Button('Go', size=(11,2)]
     ], element_justification='center')
 ]]
 
 # ----- User Input window layout -----
-solveto_img = sg.Image('images/_solid.png', size=(50, 50), key='_SOLVETOIMG_')
+solveto_img = sg.Image('images/_solid.png', size=(50, 50), key='-SOLVETOIMG-')
 col_left = sg.Column([
     [sg.Sizer(200, 10)],
     [sg.Text('1.'), sg.Button('Scan Cube', size=(11, 1))],
-    [sg.Text('2.'), sg.Combo(list(PATTERNS.keys()), default_value='Solid Cube', key='_SOLVETO_')],
+    [sg.Text('2.'), sg.Combo(list(PATTERNS.keys()), default_value='Solid Cube', key='-SOLVETO-')],
     [sg.Text('', size=(3, 1)), solveto_img],
     [sg.Text('3.'), sg.Button('Solve!', size=(11, 1), disabled=True)]
 ])
@@ -37,7 +37,7 @@ g = sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(
 col_right = sg.Column([
     [sg.Sizer(200, 10)],
     [g],
-    [sg.Quit(), sg.Button('Calibrate', key='_CALIBRATE_')]
+    [sg.Quit(), sg.Button('Calibrate']
 ], element_justification='center')
 
 layout_input = [[col_left, col_right]]
@@ -62,16 +62,16 @@ while True:
     print(button)
     if button in ('Quit', None):
         break
-    elif button is '_GO_':
+    elif button is 'Go':
         change_state(1)
-    elif button is '_CALIBRATE_':
+    elif button is 'Calibrate':
         change_state(2)
 
     if state is 0:
         pass
     elif state is 1:
-        i = 'images/{}'.format(PATTERNS[values['__SOLVETO__']][0])
-        window.Element('_SOLVETOIMG_').Update(filename=i)
+        i = 'images/{}'.format(PATTERNS[values['-SOLVETO-']][0])
+        window.Element('-SOLVETOIMG-').Update(filename=i)
         frame = grab_colors()
 
         img_bytes = cv2.imencode('.png', frame)[1].tobytes()     # Convert the image to PNG Bytes
