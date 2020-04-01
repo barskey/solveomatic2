@@ -12,7 +12,7 @@ title = sg.Text('Solve-O-Matic!')
 
 # define the canvas for showing camera and color boxes
 col_left = sg.Column([
-    [sg.Text('')],
+    [sg.Sizer(200,200)],
     [sg.Text('1.'), sg.Button('Scan Cube', size=(11, 1))],
     [sg.Text('2.'), sg.Button('Solve To', size=(11, 1))],
     [sg.Text('', size=(3, 1)), sg.Image('img/bg.png', size=(60, 60))],
