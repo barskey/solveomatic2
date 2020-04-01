@@ -42,8 +42,9 @@ while True:
     event, values = window.Read(timeout=20, timeout_key='timeout')
     if event in ('Quit', None):
         break
-    if event == '__SOLVETO__':
-        print(values)
+
+    print(values['__SOLVETO__'])
+    #window.find_element('__SOLVETOIMG__').image = ''
 
     frame = grab_colors()
 
