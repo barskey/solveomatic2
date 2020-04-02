@@ -66,7 +66,7 @@ while True:
                 win_input.close()
                 win_input_active = False
                 win_intro.un_hide()
-                win_intro.keep_on_top = True
+                win_intro.BringToFront()
                 break
 
             i = 'images/{}'.format(PATTERNS[values2['-SOLVETO-']][0])
