@@ -10,7 +10,7 @@ sg.theme('Dark Grey')
 #sg.set_options(element_padding=(0, 0))
 title = sg.Text('Solve-O-Matic!')
 
-# ----- Intro Screen window layout -----
+# ----- Intro Screen window layout | win_intro -----
 layout_intro = [[
     sg.Column([
         [sg.Text('Solve-O-Matic')],
@@ -22,7 +22,7 @@ layout_intro = [[
 ]]
 win_intro = sg.Window('Solve-O-Matic', layout_intro, size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
 
-# ----- User Input window layout -----
+# ----- User Input window layout | win_input -----
 solveto_img = sg.Image('images/_solid.png', size=(50, 50), key='-SOLVETOIMG-')
 col_left = sg.Column([
     [sg.Sizer(200, 10)],
@@ -44,7 +44,7 @@ col_right = sg.Column([
 #win_input = sg.Window('Solve-O-Matic', layout_input, size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
 win_input_active = False
 
-# ----- Calibration window layout -----
+# ----- Calibration window layout | win_cal -----
 #layout_cal = [[]]
 #win_cal = sg.Window('Solve-O-Matic', layout_cal, size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
 win_cal_active = False
@@ -56,7 +56,7 @@ while True:
     if button1 in ('Quit', None):
         break
 
-    if button1 == 'Go' and not win_intro_active:
+    if button1 == 'Go' and not win_input_active:
         win_input_active = True
         win_intro.hide()
         layout_input = [[input_col_left, input_col_right]]
