@@ -13,7 +13,7 @@ title = sg.Text('Solve-O-Matic!')
 # ----- Intro Screen window layout | win_intro -----
 layout_intro = [[
     sg.Column([
-        [sg.Sizer(440, 280)],
+        [sg.Sizer(440, 10)],
         [sg.Text('Solve-O-Matic')],
         [sg.Text('Insert Cube')],
         [sg.Text('to get started...')],
