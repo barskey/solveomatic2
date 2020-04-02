@@ -68,9 +68,10 @@ while True:
     elif win_input_active:
         button2, values2 = win_input.read(timeout=50)
         if button2 in (None, 'Quit'):
-            win_intro.BringToFront()
+            win_intro_active = True
             win_input_active = False
-        elif button2 is 'Calibrate':
+            win_intro.BringToFront()
+        elif button2 == 'Calibrate':
             win_cal_active = True
             win_input_active = False
             win_cal.BringToFront()
@@ -84,9 +85,9 @@ while True:
     elif win_cal_active:
         button3, values3 = win_cal.read(timeout=50)
         if button3 in (None, 'Quit'):
-            win_input.BringToFront()
             win_input_active = True
             win_cal_active = False
+            win_input.BringToFront()
 
 win_intro.Close()
 win_input.Close()
