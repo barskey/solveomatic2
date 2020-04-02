@@ -13,6 +13,7 @@ title = sg.Text('Solve-O-Matic!')
 # ----- Intro Screen window layout | win_intro -----
 layout_intro = [[
     sg.Column([
+        [sg.Sizer(440, 280)],
         [sg.Text('Solve-O-Matic')],
         [sg.Text('Insert Cube')],
         [sg.Text('to get started...')],
@@ -25,18 +26,16 @@ win_intro = sg.Window('Solve-O-Matic', layout_intro, size=(480, 320), no_titleba
 # ----- User Input window layout | win_input -----
 solveto_img = sg.Image('images/_solid.png', size=(50, 50), key='-SOLVETOIMG-')
 input_col_l = sg.Column([
-    [sg.Sizer(200, 10)],
+    [sg.Sizer(200, 10)],  # pads col to 200 pix
     [sg.Text('1.'), sg.Button('Scan Cube', size=(11, 1))],
     [sg.Text('2.'), sg.Combo(list(PATTERNS.keys()), default_value='Solid Cube', key='-SOLVETO-')],
     [sg.Text('', size=(3, 1)), solveto_img],
     [sg.Text('3.'), sg.Button('Solve!', size=(11, 1), disabled=True)]
 ])
-# define the canvas (graph) for showing camera and color boxes
-input_g = sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(160, 160), key='graph')
 
 input_col_r = sg.Column([
-    [sg.Sizer(200, 10)],
-    [g],
+    [sg.Sizer(200, 10)],  # pads col to 200 pix
+    [sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(160, 160), key='graph')], #  canvas to display image
     [sg.Quit(), sg.Button('Calibrate')]
 ], element_justification='center')
 
