@@ -66,8 +66,7 @@ while True:
                 win_input.close()
                 win_input_active = False
                 win_intro.un_hide()
-                win_intro.KeepOnTop(True)
-                win_intro.ReturnKeyboardEvents(True)
+                win_intro.keep_on_top = True
                 break
 
             i = 'images/{}'.format(PATTERNS[values2['-SOLVETO-']][0])
