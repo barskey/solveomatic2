@@ -15,7 +15,7 @@ layout = [[
     sg.Column([
         [sg.Sizer(200, 10)],  # pads col to 200 pix
         [sg.Button('GRIP', size=(11,1))],
-        [sg.Button('SCAN', size=(11, 1), disabled=True]),
+        [sg.Button('SCAN', size=(11, 1), disabled=True)],
         [sg.Combo(list(PATTERNS.keys()), default_value='Solid Cube', key='-SOLVETO-')],
         [sg.Image('images/_solid.png', key='-SOLVETOIMG-')],
         [sg.Button('SOLVE!', size=(11, 1), disabled=True)]
