@@ -43,7 +43,10 @@ def win_input_layout():
 win_input_active = False
 
 # ----- Calibration window layout | win_cal -----
-#layout_cal = [[]]
+def win_cal_layout():
+    return ([[
+        sg.Quit()
+    ]])
 #win_cal = sg.Window('Solve-O-Matic', layout_cal, size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
 win_cal_active = False
 
@@ -63,11 +66,22 @@ while True:
         while True:
             button2, values2 = win_input.read(timeout=50)
             if button2 in (None, 'Quit'):
+                win_intro.un_hide()
                 win_input.close()
                 win_input_active = False
-                win_intro.un_hide()
-                win_intro.BringToFront()
                 break
+            elif button2 is 'Calibrate':
+                win_cal_active = True
+                win_input.hide()
+
+                win_cal = sg.Window('Solve-O-Matic', win_cal_layout(), size=(480, 320), no_titlebar=True, keep_on_top=True)
+                while True:
+                    button3, values3 = win_cal.read(timeout=50)
+                    if button3 in (None, 'Quit'):
+                        win_cal.un_hide()
+                        win_cal.close()
+                        win_input_active = True
+                        break
 
             i = 'images/{}'.format(PATTERNS[values2['-SOLVETO-']][0])
             win_input['-SOLVETOIMG-'].Update(filename=i)
