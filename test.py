@@ -23,21 +23,22 @@ layout_intro = [[
 win_intro = sg.Window('Solve-O-Matic', layout_intro, size=(480, 320), no_titlebar=True, keep_on_top=True, return_keyboard_events=True)
 
 # ----- User Input window layout | win_input -----
-input_col_l = sg.Column([
-    [sg.Sizer(200, 10)],  # pads col to 200 pix
-    [sg.Text('1.'), sg.Button('Scan Cube', size=(11, 1))],
-    [sg.Text('2.'), sg.Combo(list(PATTERNS.keys()), default_value='Solid Cube', key='-SOLVETO-')],
-    [sg.Text('', size=(3, 1)), sg.Image('images/_solid.png', key='-SOLVETOIMG-')],
-    [sg.Text('3.'), sg.Button('Solve!', size=(11, 1), disabled=True)]
-])
+def win_input_layout():
+    return ([[
+        sg.Column([
+            [sg.Sizer(200, 10)],  # pads col to 200 pix
+            [sg.Text('1.'), sg.Button('Scan Cube', size=(11, 1))],
+            [sg.Text('2.'), sg.Combo(list(PATTERNS.keys()), default_value='Solid Cube', key='-SOLVETO-')],
+            [sg.Text('', size=(3, 1)), sg.Image('images/_solid.png', key='-SOLVETOIMG-')],
+            [sg.Text('3.'), sg.Button('Solve!', size=(11, 1), disabled=True)]
+        ]),
+        sg.Column([
+            [sg.Sizer(200, 10)],  # pads col to 200 pix
+            [sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(160, 160), key='-GRAPH-')], #  canvas to display image
+            [sg.Quit(), sg.Button('Calibrate')]
+        ], element_justification='center')
+    ]])
 
-input_col_r = sg.Column([
-    [sg.Sizer(200, 10)],  # pads col to 200 pix
-    [sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(160, 160), key='-GRAPH-')], #  canvas to display image
-    [sg.Quit(), sg.Button('Calibrate')]
-], element_justification='center')
-
-#layout_input = [[col_left, col_right]]
 #win_input = sg.Window('Solve-O-Matic', layout_input, size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
 win_input_active = False
 
@@ -57,9 +58,8 @@ while True:
     if button1 == 'Go' and not win_input_active:
         win_input_active = True
         win_intro.hide()
-        layout_input = [[input_col_l, input_col_r]]
     
-        win_input = sg.Window('Solve-O-Matic', layout_input, size=(480, 320), no_titlebar=True, keep_on_top=True)
+        win_input = sg.Window('Solve-O-Matic', win_input_layout(), size=(480, 320), no_titlebar=True, keep_on_top=True)
         while True:
             button2, values2 = win_input.read(timeout=50)
             if button2 in (None, 'Quit'):
