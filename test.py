@@ -23,12 +23,11 @@ layout_intro = [[
 win_intro = sg.Window('Solve-O-Matic', layout_intro, size=(480, 320), no_titlebar=True, keep_on_top=True, return_keyboard_events=True)
 
 # ----- User Input window layout | win_input -----
-solveto_img = sg.Image('images/_solid.png', size=(50, 50), key='-SOLVETOIMG-')
 input_col_l = sg.Column([
     [sg.Sizer(200, 10)],  # pads col to 200 pix
     [sg.Text('1.'), sg.Button('Scan Cube', size=(11, 1))],
     [sg.Text('2.'), sg.Combo(list(PATTERNS.keys()), default_value='Solid Cube', key='-SOLVETO-')],
-    [sg.Text('', size=(3, 1)), solveto_img],
+    [sg.Text('', size=(3, 1)), sg.Image('images/_solid.png', key='-SOLVETOIMG-')],
     [sg.Text('3.'), sg.Button('Solve!', size=(11, 1), disabled=True)]
 ])
 
@@ -63,7 +62,7 @@ while True:
         win_input = sg.Window('Solve-O-Matic', layout_input, size=(480, 320), no_titlebar=True, keep_on_top=True)
         while True:
             button2, values2 = win_input.read(timeout=50)
-            if button2 in (None, 'Exit'):
+            if button2 in (None, 'Quit'):
                 win_input.close()
                 win_input_active = False
                 win_intro.un_hide()
