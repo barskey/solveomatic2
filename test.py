@@ -53,10 +53,9 @@ win_intro.BringToFront()
 
 # ---===--- Event LOOP Read and display frames, operate the GUI --- #
 while True:
-    button1, values1 = win_intro.read(timeout=50, timeout_key='timeout')
+    button1, values1 = win_intro.read(timeout=100, timeout_key='timeout')
     
     if button1 in ('Quit', 'Escape:9', None):
-        print(button1, 'exiting')
         break
 
     if button1 == 'Go' and not win_input_active:
@@ -69,7 +68,6 @@ while True:
         if button2 in (None, 'Quit'):
             win_intro.BringToFront()
             win_input_active = False
-            break
         elif button2 is 'Calibrate':
             win_cal_active = True
             win_cal.BringToFront()
@@ -80,4 +78,6 @@ while True:
         img_bytes = cv2.imencode('.png', frame)[1].tobytes()     # Convert the image to PNG Bytes
         win_input['-GRAPH-'].draw_image(location=(0, 160), data=img_bytes)
 
-window.Close()
+win_intro.Close()
+win_input.Close()
+win_cal.Close()
