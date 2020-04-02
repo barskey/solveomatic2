@@ -34,7 +34,7 @@ input_col_l = sg.Column([
 
 input_col_r = sg.Column([
     [sg.Sizer(200, 10)],  # pads col to 200 pix
-    [sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(160, 160), key='graph')], #  canvas to display image
+    [sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(160, 160), key='-GRAPH-')], #  canvas to display image
     [sg.Quit(), sg.Button('Calibrate')]
 ], element_justification='center')
 
@@ -73,6 +73,6 @@ while True:
             win_input['-SOLVETOIMG-'].Update(filename=i)
             frame = grab_colors()
             img_bytes = cv2.imencode('.png', frame)[1].tobytes()     # Convert the image to PNG Bytes
-            g.draw_image(location=(0, 160), data=img_bytes)
+            win_input['-GRAPH-'].draw_image(location=(0, 160), data=img_bytes)
 
 window.Close()
