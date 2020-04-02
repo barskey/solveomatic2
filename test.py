@@ -5,12 +5,12 @@ import cv2
 from vision2 import grab_colors
 from lookups import PATTERNS
 
-# ----- Window setup -----
+# ----- Window setup ----- #
 sg.theme('Dark Grey')
 #sg.set_options(element_padding=(0, 0))
 title = sg.Text('Solve-O-Matic!')
 
-# ----- User Input window layout -----
+# ----- User Input window layout ----- #
 layout = [[
     sg.Column([
         [sg.Sizer(200, 10)],  # pads col to 200 pix
@@ -19,7 +19,7 @@ layout = [[
         [sg.Combo(list(PATTERNS.keys()), default_value='Solid Cube', key='-SOLVETO-')],
         [sg.Image('images/_solid.png', key='-SOLVETOIMG-')],
         [sg.Button('SOLVE!', size=(11, 1), disabled=True)]
-    ]),
+    ], element_justification='center'),
     sg.Column([
         [sg.Sizer(200, 10)],  # pads col to 200 pix
         [sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(160, 160), key='-GRAPH-')], #  canvas to display image
@@ -29,13 +29,19 @@ layout = [[
 ]]
 window = sg.Window('Solve-O-Matic', layout, size=(480, 320), no_titlebar=True, return_keyboard_events=True)
 
-# ----- Calibration window layout | win_cal -----
+# ----- Calibration window layout ----- #
 def cal_layout():
     return ([[
         sg.Quit()
     ]])
 
-# ---===--- Event LOOP Read and display frames, operate the GUI --- #
+def grip(state):
+    pass
+
+def scan():
+    pass
+
+# ----- Event LOOP Read and display frames, operate the GUI ----- #
 while True:
     button, values = window.read(timeout=50)
     if button in (None, 'Quit'):

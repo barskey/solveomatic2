@@ -194,3 +194,15 @@ PATTERNS = {
 	'Tetris':               ['tetris.png',                   'FFBFUBFBBUDDURDUUDRLLRFLRRLBBFBDFBFFUDDULDUUDLRRLBRLLR'],
 	'Facing Checkerboards': ['facing-checkerboards.png',     'UUUUUUUUURLRLRLRLRFFFFFFFFFDDDDDDDDDLRLRLRLRLBBBBBBBBB']
 }
+
+# with cube starting in UFD, these sides can be rotated to scan each side in proper rotation (0)
+# perform moves, then scan -- hence no moves before scanning U
+MOVES_FOR_SCAN = [
+    [''],                                                # UFD-scan U
+    ['Bo','A+','Bc','Ao','A-','B+','Ac','Bo','B-','Bc'], # LDR-scan L
+    ['Bo','A-','Bc','Ao','A+','Ac'],                     # FDB-scan F
+    ['Bo','A-','Bc','Ao','A+','Ac'],                     # RDL-scan R
+    ['Bo','A-','Bc','Ao','A+','Ac'],                     # BDF-scan B
+    ['Ao','B-','Ac','Bo','B-','A+','Bc',
+        'Ao','A-','B-','Ac','Bo','B-','Bc']              # DBU-scan D
+]
