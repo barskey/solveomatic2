@@ -21,7 +21,7 @@ layout_intro = [[
         [sg.Button('Go', size=(11,2))]
     ], element_justification='center')
 ]]
-win_intro = sg.Window('Solve-O-Matic', layout_intro, size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
+win_intro = sg.Window('Solve-O-Matic', layout_intro, size=(480, 320), no_titlebar=True, keep_on_top=True, return_keyboard_events=True)
 
 # ----- User Input window layout | win_input -----
 solveto_img = sg.Image('images/_solid.png', size=(50, 50), key='-SOLVETOIMG-')
@@ -53,6 +53,7 @@ while True:
     button1, values1 = win_intro.read(timeout=50, timeout_key='timeout')
     
     if button1 in ('Quit', None):
+        print(button1, 'exiting')
         break
 
     if button1 == 'Go' and not win_input_active:
