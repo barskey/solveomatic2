@@ -20,7 +20,7 @@ layout_intro = [[
         [sg.Button('Go', size=(11,2))]
     ], element_justification='center')
 ]]
-win_intro = sg.Window('Solve-O-Matic', layout_intro, size=(480, 320), no_titlebar=True, return_keyboard_events=True, finalize=True)
+win_intro = sg.Window('Solve-O-Matic', layout_intro, size=(480, 320), no_titlebar=True, return_keyboard_events=True)
 win_intro_active = True
 
 # ----- User Input window layout | win_input -----
@@ -65,7 +65,6 @@ while True:
             win_input_active = True
             win_intro_active = False
             win_input.BringToFront()
-            win_intro.SendToBack()
 
     elif win_input_active:
         button2, values2 = win_input.read(timeout=50)
@@ -74,7 +73,6 @@ while True:
             win_intro_active = True
             win_input_active = False
             win_intro.BringToFront()
-            win_input.SendToBack()
         elif button2 == 'Calibrate':
             print(button2)
             win_cal_active = True
@@ -94,7 +92,6 @@ while True:
             win_input_active = True
             win_cal_active = False
             win_input.BringToFront()
-            win_cal.SendToBack()
 
 win_intro.Close()
 win_input.Close()
