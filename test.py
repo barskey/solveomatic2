@@ -1,4 +1,3 @@
-import time
 import PySimpleGUI as sg            # Uncomment 1 to run on that framework
 # import PySimpleGUIQt as sg        # runs on Qt with no other changes
 # import PySimpleGUIWeb as sg       # has a known flicker problem that's being worked
@@ -21,6 +20,7 @@ layout_intro = [[
         [sg.Button('Go', size=(11,2))]
     ], element_justification='center')
 ]]
+win_intro = sg.Window('Solve-O-Matic', layout_intro, size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
 
 # ----- User Input window layout -----
 solveto_img = sg.Image('images/_solid.png', size=(50, 50), key='-SOLVETOIMG-')
@@ -40,42 +40,40 @@ col_right = sg.Column([
     [sg.Quit(), sg.Button('Calibrate')]
 ], element_justification='center')
 
-layout_input = [[col_left, col_right]]
+#layout_input = [[col_left, col_right]]
+#win_input = sg.Window('Solve-O-Matic', layout_input, size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
+win_input_active = False
 
 # ----- Calibration window layout -----
-# layout_calibrate = 
-
-def change_state(newstate):
-    global window
-    window.Close()  # close old window
-    state = newstate
-    window = sg.Window('Solve-O-Matic', layouts[state], size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
-
-state = 0 # intro
-layouts = [layout_intro, layout_input]
-
-# start in state 0
-window = sg.Window('Solve-O-Matic', layouts[state], size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
+#layout_cal = [[]]
+#win_cal = sg.Window('Solve-O-Matic', layout_cal, size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
+win_cal_active = False
 
 # ---===--- Event LOOP Read and display frames, operate the GUI --- #
 while True:
-    button, values = window.Read(timeout=50, timeout_key='timeout')
+    button1, values1 = win_intro.read(timeout=50, timeout_key='timeout')
     
-    if button in ('Quit', None):
+    if button1 in ('Quit', None):
         break
-    elif button is 'Go':
-        change_state(1)
-    elif button is 'Calibrate':
-        change_state(2)
 
-    if state is 0:
-        pass
-    elif state is 1:
-        i = 'images/{}'.format(PATTERNS[values['-SOLVETO-']][0])
-        window.Element('-SOLVETOIMG-').Update(filename=i)
-        frame = grab_colors()
+    if button1 == 'Go' and not win_intro_active:
+        win_input_active = True
+        win_intro.hide()
+        layout_input = [[input_col_left, input_col_right]]
+    
+        win_input = sg.Window('Solve-O-Matic', layout_input, size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
+        while True:
+            button2, values2 = win_input.read(timeout=50)
+            if button2 in (None, 'Exit'):
+                win_input.close()
+                win_input_active = False
+                win_intro.un_hide()
+                break
 
-        img_bytes = cv2.imencode('.png', frame)[1].tobytes()     # Convert the image to PNG Bytes
-        g.draw_image(location=(0, 160), data=img_bytes)
+            i = 'images/{}'.format(PATTERNS[values['-SOLVETO-']][0])
+            window['-SOLVETOIMG-'].Update(filename=i)
+            frame = grab_colors()
+            img_bytes = cv2.imencode('.png', frame)[1].tobytes()     # Convert the image to PNG Bytes
+            g.draw_image(location=(0, 160), data=img_bytes)
 
 window.Close()
