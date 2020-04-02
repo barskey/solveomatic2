@@ -21,6 +21,7 @@ layout_intro = [[
     ], element_justification='center')
 ]]
 win_intro = sg.Window('Solve-O-Matic', layout_intro, size=(480, 320), no_titlebar=True, keep_on_top=True, return_keyboard_events=True, finalize=True)
+win_intro_active = True
 
 # ----- User Input window layout | win_input -----
 def win_input_layout():
@@ -53,23 +54,25 @@ win_intro.BringToFront()
 
 # ---===--- Event LOOP Read and display frames, operate the GUI --- #
 while True:
-    button1, values1 = win_intro.read(timeout=100, timeout_key='timeout')
+    if win_intro_active:
+        button1, values1 = win_intro.read(timeout=50, timeout_key='timeout')
     
-    if button1 in ('Quit', 'Escape:9', None):
-        break
+        if button1 in (None, 'Escape:9'):
+            break
 
-    if button1 == 'Go' and not win_input_active:
-        win_input_active = True
-        win_input.BringToFront()
-        #win_intro.hide()
-    
-    if win_input_active:
+        if button1 == 'Go' and not win_input_active:
+            win_input_active = True
+            win_intro_active = False
+            win_input.BringToFront()
+
+    elif win_input_active:
         button2, values2 = win_input.read(timeout=50)
         if button2 in (None, 'Quit'):
             win_intro.BringToFront()
             win_input_active = False
         elif button2 is 'Calibrate':
             win_cal_active = True
+            win_input_active = False
             win_cal.BringToFront()
 
         i = 'images/{}'.format(PATTERNS[values2['-SOLVETO-']][0])
@@ -77,6 +80,13 @@ while True:
         frame = grab_colors()
         img_bytes = cv2.imencode('.png', frame)[1].tobytes()     # Convert the image to PNG Bytes
         win_input['-GRAPH-'].draw_image(location=(0, 160), data=img_bytes)
+        
+    elif win_cal_active:
+        button3, values3 = win_cal.read(timeout=50)
+        if button3 in (None, 'Quit'):
+            win_input.BringToFront()
+            win_input_active = True
+            win_cal_active = False
 
 win_intro.Close()
 win_input.Close()
