@@ -9,7 +9,7 @@ from lookups import PATTERNS
 sg.theme('Dark Grey')
 #sg.set_options(element_padding=(0, 0))
 title = sg.Text('Solve-O-Matic!')
-
+test_elem = sg.Text('', size=(18,1))
 # ----- Intro Screen window layout | win_intro -----
 layout_intro = [[
     sg.Column([
@@ -18,6 +18,7 @@ layout_intro = [[
         [sg.Text('Insert Cube')],
         [sg.Text('to get started...')],
         [sg.Text('')],
+        [test_elem],
         [sg.Button('Go', size=(11,2))]
     ], element_justification='center')
 ]]
@@ -55,13 +56,14 @@ while True:
     if button1 in ('Quit', None):
         print(button1, 'exiting')
         break
+    test_elem.Update(button1)
 
     if button1 == 'Go' and not win_input_active:
         win_input_active = True
         win_intro.hide()
         layout_input = [[input_col_l, input_col_r]]
     
-        win_input = sg.Window('Solve-O-Matic', layout_input, size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
+        win_input = sg.Window('Solve-O-Matic', layout_input, size=(480, 320), no_titlebar=True, keep_on_top=True)
         while True:
             button2, values2 = win_input.read(timeout=50)
             if button2 in (None, 'Exit'):
@@ -71,7 +73,7 @@ while True:
                 break
 
             i = 'images/{}'.format(PATTERNS[values2['-SOLVETO-']][0])
-            window['-SOLVETOIMG-'].Update(filename=i)
+            window2['-SOLVETOIMG-'].Update(filename=i)
             frame = grab_colors()
             img_bytes = cv2.imencode('.png', frame)[1].tobytes()     # Convert the image to PNG Bytes
             g.draw_image(location=(0, 160), data=img_bytes)
