@@ -27,7 +27,7 @@ layout = [[
     ], element_justification='center'),
     sg.Text('Insert cube and GRIP to continue...', key='-INFO-')
 ]]
-window = sg.Window('Solve-O-Matic', layout, size=(480, 320), no_titlebar=True, return_key_events=True)
+window = sg.Window('Solve-O-Matic', layout, size=(480, 320), no_titlebar=True, return_keyboard_events=True)
 
 # ----- Calibration window layout | win_cal -----
 def cal_layout():
