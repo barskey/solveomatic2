@@ -38,7 +38,7 @@ def win_input_layout():
             [sg.Quit(), sg.Button('Calibrate')]
         ], element_justification='center')
     ]])
-win_input = sg.Window('Solve-O-Matic', win_input_layout(), size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
+win_input = sg.Window('Solve-O-Matic', win_input_layout(), size=(480, 320), no_titlebar=True, keep_on_top=True)
 win_input_active = False
 
 # ----- Calibration window layout | win_cal -----
@@ -46,7 +46,7 @@ def win_cal_layout():
     return ([[
         sg.Quit()
     ]])
-win_cal = sg.Window('Solve-O-Matic', win_cal_layout(), size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
+win_cal = sg.Window('Solve-O-Matic', win_cal_layout(), size=(480, 320), no_titlebar=True, keep_on_top=True)
 win_cal_active = False
 
 win_intro.BringToFront()
