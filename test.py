@@ -20,7 +20,7 @@ layout_intro = [[
         [sg.Button('Go', size=(11,2))]
     ], element_justification='center')
 ]]
-win_intro = sg.Window('Solve-O-Matic', layout_intro, size=(480, 320), no_titlebar=True, keep_on_top=True, return_keyboard_events=True, finalize=True)
+win_intro = sg.Window('Solve-O-Matic', layout_intro, size=(480, 320), no_titlebar=True, return_keyboard_events=True, finalize=True)
 win_intro_active = True
 
 # ----- User Input window layout | win_input -----
@@ -39,7 +39,7 @@ def win_input_layout():
             [sg.Quit(), sg.Button('Calibrate')]
         ], element_justification='center')
     ]])
-win_input = sg.Window('Solve-O-Matic', win_input_layout(), size=(480, 320), no_titlebar=True, keep_on_top=True)
+win_input = sg.Window('Solve-O-Matic', win_input_layout(), size=(480, 320), no_titlebar=True)
 win_input_active = False
 
 # ----- Calibration window layout | win_cal -----
@@ -47,7 +47,7 @@ def win_cal_layout():
     return ([[
         sg.Quit()
     ]])
-win_cal = sg.Window('Solve-O-Matic', win_cal_layout(), size=(480, 320), no_titlebar=True, keep_on_top=True)
+win_cal = sg.Window('Solve-O-Matic', win_cal_layout(), size=(480, 320), no_titlebar=True)
 win_cal_active = False
 
 win_intro.BringToFront()
@@ -80,7 +80,7 @@ while True:
         frame = grab_colors()
         img_bytes = cv2.imencode('.png', frame)[1].tobytes()     # Convert the image to PNG Bytes
         win_input['-GRAPH-'].draw_image(location=(0, 160), data=img_bytes)
-        
+
     elif win_cal_active:
         button3, values3 = win_cal.read(timeout=50)
         if button3 in (None, 'Quit'):
