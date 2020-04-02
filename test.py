@@ -20,7 +20,7 @@ layout_intro = [[
         [sg.Button('Go', size=(11,2))]
     ], element_justification='center')
 ]]
-win_intro = sg.Window('Solve-O-Matic', layout_intro, size=(480, 320), no_titlebar=True, keep_on_top=True, return_keyboard_events=True)
+win_intro = sg.Window('Solve-O-Matic', layout_intro, size=(480, 320), no_titlebar=True, keep_on_top=True, return_keyboard_events=True, finalize=True)
 
 # ----- User Input window layout | win_input -----
 def win_input_layout():
@@ -38,8 +38,7 @@ def win_input_layout():
             [sg.Quit(), sg.Button('Calibrate')]
         ], element_justification='center')
     ]])
-
-#win_input = sg.Window('Solve-O-Matic', layout_input, size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
+win_input = sg.Window('Solve-O-Matic', layout_input_layout(), size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
 win_input_active = False
 
 # ----- Calibration window layout | win_cal -----
@@ -47,8 +46,10 @@ def win_cal_layout():
     return ([[
         sg.Quit()
     ]])
-#win_cal = sg.Window('Solve-O-Matic', layout_cal, size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
+win_cal = sg.Window('Solve-O-Matic', win_cal_layout(), size=(480, 320), no_titlebar=True, keep_on_top=True, finalize=True)
 win_cal_active = False
+
+win_intro.BringToFront()
 
 # ---===--- Event LOOP Read and display frames, operate the GUI --- #
 while True:
@@ -60,33 +61,23 @@ while True:
 
     if button1 == 'Go' and not win_input_active:
         win_input_active = True
-        win_intro.hide()
+        win_input.BringToFront()
+        #win_intro.hide()
     
-        win_input = sg.Window('Solve-O-Matic', win_input_layout(), size=(480, 320), no_titlebar=True, keep_on_top=True)
-        while True:
-            button2, values2 = win_input.read(timeout=50)
-            if button2 in (None, 'Quit'):
-                win_intro.un_hide()
-                win_input.close()
-                win_input_active = False
-                break
-            elif button2 is 'Calibrate':
-                win_cal_active = True
-                win_input.hide()
+    if win_input_active:
+        button2, values2 = win_input.read(timeout=50)
+        if button2 in (None, 'Quit'):
+            win_intro.BringToFront()
+            win_input_active = False
+            break
+        elif button2 is 'Calibrate':
+            win_cal_active = True
+            win_cal.BringToFront()
 
-                win_cal = sg.Window('Solve-O-Matic', win_cal_layout(), size=(480, 320), no_titlebar=True, keep_on_top=True)
-                while True:
-                    button3, values3 = win_cal.read(timeout=50)
-                    if button3 in (None, 'Quit'):
-                        win_cal.un_hide()
-                        win_cal.close()
-                        win_input_active = True
-                        break
-
-            i = 'images/{}'.format(PATTERNS[values2['-SOLVETO-']][0])
-            win_input['-SOLVETOIMG-'].Update(filename=i)
-            frame = grab_colors()
-            img_bytes = cv2.imencode('.png', frame)[1].tobytes()     # Convert the image to PNG Bytes
-            win_input['-GRAPH-'].draw_image(location=(0, 160), data=img_bytes)
+        i = 'images/{}'.format(PATTERNS[values2['-SOLVETO-']][0])
+        win_input['-SOLVETOIMG-'].Update(filename=i)
+        frame = grab_colors()
+        img_bytes = cv2.imencode('.png', frame)[1].tobytes()     # Convert the image to PNG Bytes
+        win_input['-GRAPH-'].draw_image(location=(0, 160), data=img_bytes)
 
 window.Close()
