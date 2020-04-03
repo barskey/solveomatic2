@@ -13,7 +13,7 @@ title = sg.Text('Solve-O-Matic!')
 # ----- User Input window layout ----- #
 layout = [[
     sg.Column([
-        [sg.Sizer(200, 10)],  # pads col to 200 pix
+        [sg.Sizer(200, 1)],  # pads col to 200 pix
         [sg.Button('GRIP', size=(11,1))],
         [sg.Button('SCAN', size=(11, 1), disabled=True)],
         [sg.Combo(list(PATTERNS.keys()), default_value='Solid Cube', key='-SOLVETO-')],
@@ -21,17 +21,22 @@ layout = [[
         [sg.Button('SOLVE!', size=(11, 1), disabled=True)]
     ], element_justification='center'),
     sg.Column([
-        [sg.Sizer(200, 10)],  # pads col to 200 pix
+        [sg.Sizer(200, 1)],  # pads col to 200 pix
         [sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(160, 160), key='-GRAPH-')], #  canvas to display image
         [sg.Quit(), sg.Button('Calibrate')]
     ], element_justification='center'),
-    sg.Text('Insert cube and GRIP to continue...', key='-INFO-')
+    sg.Text('Insert cube and GRIP to continue...', font=('Computerfont', 14, ''), key='-INFO-')
 ]]
 window = sg.Window('Solve-O-Matic', layout, size=(480, 320), no_titlebar=True, return_keyboard_events=True)
 
 # ----- Calibration window layout ----- #
 def cal_layout():
     return ([[
+        sg.Column([
+            [sg.Sizer(200,10)],
+            [sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(160, 160), key='-CALGRAPH-')], #  canvas to display image
+            [sg.Quit(), sg.Button('Calibrate')]
+        ])
         sg.Quit()
     ]])
 
