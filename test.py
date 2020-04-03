@@ -33,11 +33,10 @@ window = sg.Window('Solve-O-Matic', layout, size=(480, 320), no_titlebar=True, r
 def cal_layout():
     return ([[
         sg.Column([
-            [sg.Sizer(200,10)],
+            [sg.Sizer(200,1)],
             [sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(160, 160), key='-CALGRAPH-')], #  canvas to display image
             [sg.Quit(), sg.Button('Calibrate')]
         ])
-        sg.Quit()
     ]])
 
 def grip(state):
