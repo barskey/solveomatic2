@@ -32,7 +32,7 @@ col2 = sg.Column([
     ], pad=(0, 0))]
 ], element_justification='center', size=(240, 240))
 col3 = sg.Column([
-    [sg.Text('Insert cube and GRIP to continue...', font=('Computerfont', 18, ''), size=(30), key='-INFO-')]
+    [sg.Text('Insert cube and GRIP to continue...', font=('Computerfont', 18, ''), size=(30, 1), key='-INFO-')]
 ], element_justification='center')
 layout = [[col1, col2], [col3]]
 window = sg.Window('Solve-O-Matic', layout, size=(480, 320), no_titlebar=True, return_keyboard_events=True)
