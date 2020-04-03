@@ -12,7 +12,7 @@ title = sg.Text('Solve-O-Matic!')
 
 # ----- User Input window layout ----- #
 col1 = sg.Column([
-        [sg.Frame('Step 1 | Insert cube',
+        [sg.Frame('Step 1 | Insert cube', [
             [sg.Sizer(220, 1)],
             [sg.Button('GRIP', size=(11,1))],
             [sg.Button('SCAN', size=(11, 1), disabled=True)]
