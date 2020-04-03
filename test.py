@@ -15,14 +15,14 @@ col1 = sg.Column([
         [sg.Frame('Step 1', [
             [sg.Button('GRIP', size=(11,1))],
             [sg.Button('SCAN', size=(11, 1), disabled=True)]
-        ], pad=(0, 0))],
+        ], size=(480, 240), pad=(0, 0))],
         [sg.Frame('Step 2', [
             [sg.Combo(list(PATTERNS.keys()), default_value='Solid Cube', key='-SOLVETO-')],
             [sg.Image('images/_solid.png', key='-SOLVETOIMG-')]
-        ], pad=(0, 0))],
+        ], size=(480, 240), pad=(0, 0))],
         [sg.Frame('Step 3', [
             [sg.Button('SOLVE!', size=(11, 1), disabled=True)]
-        ], pad=(0, 0))]
+        ], size=(480, 240), pad=(0, 0))]
     ], element_justification='center', pad=(0, 0))
 col2 = sg.Column([
         [sg.Sizer(200, 1)],  # pads col to 200 pix
