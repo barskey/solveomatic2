@@ -42,6 +42,7 @@ window = sg.Window('Solve-O-Matic', layout, size=(480, 320), no_titlebar=True, r
 # ----- Solve To window layout ----- #
 solveto_row = []
 cols = 6
+count = 1
 solveto_layout = [[sg.Text('Select a pattern to solve to:', font=('Computerfont', 18))]]
 for p,l in PATTERNS.items():
     if not count % cols:
@@ -49,6 +50,7 @@ for p,l in PATTERNS.items():
         solveto_row = []
     solveto_row += [sg.Button(p, button_color=(sg.theme_background_color(), sg.theme_background_color()),
         image_filename='images/{}'.format(l[0]), image_size=(50, 50), image_subsample=1, border_width=0)]
+    count += 1
 if solveto_row:
     solveto_layout += solveto_row
 solveto_window = sg.Window('Solve To', solveto_layout, size=(400, 300), no_titlebar=True)
