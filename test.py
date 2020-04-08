@@ -10,6 +10,9 @@ sg.theme('Dark Grey')
 #sg.set_options(element_padding=(0, 0))
 title = sg.Text('Solve-O-Matic!')
 
+def btn(name, state):
+    return sg.Button(name, size=(11, 1), disabled=state)
+
 # ----- User Input window layout ----- #
 col1 = sg.Column([
     [sg.Frame('Step 1 | Insert cube', [
@@ -27,15 +30,30 @@ col2 = sg.Column([
     [sg.Frame('Step 3 | Go', [
         [sg.Sizer(220, 1)],  # pads col to 220 pix
         [sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(160, 160), key='-GRAPH-')], #  canvas to display image
-        [sg.Button('SOLVE!', size=(11, 1), disabled=True)],
-        [sg.Quit(), sg.Button('Calibrate')]
+        [sg.Button('SOLVE!', size=(11, 1), disabled=True)]
     ], pad=(0, 0))]
-], element_justification='center', size=(240, 240))
+], element_justification='center', size=(240, 220))
 col3 = sg.Column([
-    [sg.Text('Insert cube and GRIP to continue...', font=('Computerfont', 18, ''), size=(30, 1), key='-INFO-')]
-], element_justification='center')
+    [sg.Text('Insert cube and GRIP to continue...', font=('Computerfont', 18, ''), key='-INFO-'), sg.Quit(), sg.Button('Calibrate')]
+])
 layout = [[col1, col2], [col3]]
 window = sg.Window('Solve-O-Matic', layout, size=(480, 320), no_titlebar=True, return_keyboard_events=True)
+
+# ----- Solve To window layout ----- #
+solveto_row = []
+cols = 6
+solveto_layout = [[sg.Text('Select a pattern to solve to:', font='Computerfont', 18)]]
+for p,l in PATTERNS.items():
+    if not count % cols:
+        solveto_layout += [solveto_row]
+        solveto_row = []
+    solveto_row += [sg.Button(p, button_color=(sg.theme_background_color(), sg.theme_background_color()),
+        image_filename='images/{}'.format(l[0]), image_size=(50, 50), image_subsample=1, border_width=0)]
+if solveto_row:
+    solveto_layout += solveto_row
+solveto_window = sg.Window('Solve To', solveto_layout, size=400, 300, no_titlebar=True)
+solveto_window.read()
+solveto_window.close()
 
 # ----- Calibration window layout ----- #
 def cal_layout():
