@@ -51,7 +51,7 @@ for p,l in PATTERNS.items():
         image_filename='images/{}'.format(l[0]), image_size=(50, 50), image_subsample=1, border_width=0)]
 if solveto_row:
     solveto_layout += solveto_row
-solveto_window = sg.Window('Solve To', solveto_layout, size=400, 300, no_titlebar=True)
+solveto_window = sg.Window('Solve To', solveto_layout, size=(400, 300), no_titlebar=True)
 solveto_window.read()
 solveto_window.close()
 
