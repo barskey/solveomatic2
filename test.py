@@ -42,7 +42,7 @@ window = sg.Window('Solve-O-Matic', layout, size=(480, 320), no_titlebar=True, r
 # ----- Solve To window layout ----- #
 solveto_row = []
 cols = 6
-solveto_layout = [[sg.Text('Select a pattern to solve to:', font='Computerfont', 18)]]
+solveto_layout = [[sg.Text('Select a pattern to solve to:', font=('Computerfont', 18))]]
 for p,l in PATTERNS.items():
     if not count % cols:
         solveto_layout += [solveto_row]
