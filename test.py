@@ -58,7 +58,7 @@ for p, l in PATTERNS.items():
     count += 1
 if solveto_row:
     solveto_layout += [solveto_row]
-solveto_window = sg.Window('Solve To', solveto_layout, size=(400, 300), no_titlebar=True)
+solveto_window = sg.Window('Solve To', solveto_layout, size=(420, 300), no_titlebar=True)
 solveto_window.read()
 solveto_window.close()
 
