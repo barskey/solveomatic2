@@ -21,24 +21,24 @@ def btn(name, state=False):
 # ----- User Input window layout ----- #
 col1 = sg.Column([
     [sg.Frame('Step 1 | Insert cube', [
-        [sg.Sizer(210, 1)],
+        [sg.Sizer(200, 1)],
         [btn('GRIP')],
         [btn('SCAN', True)]
     ], pad=(0, 0), element_justification='center')],
     [sg.Frame('Step 2 | Pick a pattern:', [
-        [sg.Sizer(210, 1)],
+        [sg.Sizer(200, 1)],
         [sg.Button('', image_filename='images/{}'.format(PATTERNS[SOLVETO][0]), key='-SOLVETOBTN-')],
         [sg.Text(SOLVETO, font=('Computerfont', 18, ''), key='-SOLVETO-')]
     ], pad=(0, 0), element_justification='center')]
-], element_justification='center', size=(220, 240), pad=(0, 0))
+], element_justification='center', pad=(0, 0))
 col2 = sg.Column([
     [sg.Frame('Step 3 | Go', [
-        [sg.Sizer(220, 1)],  # pads col to 220 pix
+        [sg.Sizer(210, 1)],  # pads col to 210 pix
         [sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(160, 160), key='-GRAPH-')],
         # canvas to display image
         [sg.Button('SOLVE!', size=(11, 1), disabled=True)]
     ], pad=(0, 0))]
-], element_justification='center', size=(220, 220))
+], element_justification='center')
 col3 = sg.Column([
     [sg.Text('Insert cube and GRIP to continue...', font=('Computerfont', 18, ''), key='-INFO-'), sg.Quit(),
      sg.Button('Calibrate')]
@@ -89,6 +89,9 @@ while True:
     button, values = window.read(timeout=50)
     if button in (None, 'Quit'):
         break
+    elif button == '=SOLVETOBTN-':
+        solveto_window.read()
+        solveto_window.close()
     elif button == 'Calibrate':
         window_cal = sg.Window('Solve-O-Matic', cal_layout(), size=(480, 320), no_titlebar=True)
         while True:
