@@ -28,7 +28,7 @@ col1 = sg.Column([
     [sg.Frame('Step 2 | Pick a pattern:', [
         [sg.Sizer(200, 1)],
         [sg.Button('', image_filename='images/{}'.format(PATTERNS[SOLVETO][0]), key='-SOLVETOBTN-')],
-        [sg.Text(SOLVETO, font=('Computerfont', 18, ''), key='-SOLVETO-')]
+        [sg.Text(SOLVETO, font=('Computerfont', 12, ''), key='-SOLVETO-')]
     ], pad=(0, 0), element_justification='center')]
 ], element_justification='center', pad=(0, 0))
 col2 = sg.Column([
@@ -89,7 +89,7 @@ while True:
     if button in (None, 'Quit'):
         break
     elif button == '-SOLVETOBTN-':
-        window_solveto = sg.Window('Solve To', solveto_layout(), size=(400, 300), no_titlebar=True)
+        window_solveto = sg.Window('Solve To', solveto_layout(), size=(480, 320), no_titlebar=True)
         solvebtn, solvevals = window_solveto.read(close=True)
         SOLVETO = solvebtn
         window['-SOLVETO-'].update(SOLVETO)
