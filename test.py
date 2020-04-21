@@ -47,21 +47,22 @@ layout = [[col1, col2], [col3]]
 window = sg.Window('Solve-O-Matic', layout, size=(480, 320), no_titlebar=True, return_keyboard_events=True)
 
 # ----- Solve To window layout ----- #
-solveto_row = []
-cols = 6
-count = 0
-solveto_layout = [[sg.Text('Select a pattern to solve to:', font=('Computerfont', 18))]]
-for p, l in PATTERNS.items():
-    if not count % cols:
+def solveto_layout():
+    solveto_row = []
+    cols = 6
+    count = 0
+    solveto_layout = [[sg.Text('Select a pattern to solve to:', font=('Computerfont', 18))]]
+    for p, l in PATTERNS.items():
+        if not count % cols:
+            solveto_layout += [solveto_row]
+            solveto_row = []
+        solveto_row += [sg.Button('', button_color=(sg.theme_background_color(), sg.theme_background_color()),
+                                  image_filename='images/{}'.format(l[0]),
+                                  border_width=0)]
+        count += 1
+    if solveto_row:
         solveto_layout += [solveto_row]
-        solveto_row = []
-    solveto_row += [sg.Button('', button_color=(sg.theme_background_color(), sg.theme_background_color()),
-                              image_filename='images/{}'.format(l[0]),
-                              border_width=0)]
-    count += 1
-if solveto_row:
-    solveto_layout += [solveto_row]
-solveto_window = sg.Window('Solve To', solveto_layout, size=(400, 300), no_titlebar=True)
+    return solveto_layout
 
 
 # ----- Calibration window layout ----- #
@@ -91,6 +92,7 @@ while True:
     if button in (None, 'Quit'):
         break
     elif button == '=SOLVETOBTN-':
+        solveto_window = sg.Window('Solve To', solveto_layout(), size=(400, 300), no_titlebar=True)
         solveto_window.read(close=True)
         solveto_window.close()
     elif button == 'Calibrate':
