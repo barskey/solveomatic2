@@ -33,7 +33,7 @@ col1 = sg.Column([
 ], element_justification='center', pad=(0, 0))
 col2 = sg.Column([
     [sg.Frame('Step 3 | Go', [
-        [sg.Sizer(210, 1)],  # pads col to 210 pix
+        [sg.Sizer(220, 1)],  # pads col to 210 pix
         [sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(160, 160), key='-GRAPH-')],
         # canvas to display image
         [sg.Button('SOLVE!', size=(11, 1), disabled=True)]
@@ -86,6 +86,7 @@ def scan():
 # ----- Event LOOP Read and display frames, operate the GUI ----- #
 while True:
     button, values = window.read(timeout=50)
+    print(button)
     if button in (None, 'Quit'):
         break
     elif button == '-SOLVETOBTN-':
@@ -109,7 +110,7 @@ while True:
     elif button == 'SCAN':
         # TODO perform scan
         print('Scanning...')
-        window['SOLVE'].update(disabled=False)
+        window['SOLVE!'].update(disabled=False)
     elif button == 'SOLVE!':
         # TODO perform solve
         print('Solving...')
