@@ -27,8 +27,8 @@ col1 = sg.Column([
     ], pad=(0, 0), element_justification='center')],
     [sg.Frame('Step 2 | Pick a pattern:', [
         [sg.Sizer(200, 1)],
-        [sg.Button('', image_filename='images/{}'.format(PATTERNS[SOLVETO][0]), key='-SOLVETOBTN-')],
-        [sg.Text(SOLVETO, font=('Computerfont', 12, ''), key='-SOLVETO-')]
+        [sg.Button('', image_filename='images/{}'.format(PATTERNS[SOLVETO][0]), border_width=2, key='-SOLVETOBTN-')],
+        [sg.Text(SOLVETO, size=(15,1), font=('Computerfont', 12, ''), key='-SOLVETO-')]
     ], pad=(0, 0), element_justification='center')]
 ], element_justification='center', pad=(0, 0))
 col2 = sg.Column([
