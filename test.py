@@ -97,8 +97,6 @@ while True:
                 window_cal.Close()
                 break
 
-    i = 'images/{}'.format(PATTERNS[values['-SOLVETO-']][0])
-    window['-SOLVETOIMG-'].Update(filename=i)
     frame = grab_colors()
     img_bytes = cv2.imencode('.png', frame)[1].tobytes()  # Convert the image to PNG Bytes
     window['-GRAPH-'].draw_image(location=(0, 160), data=img_bytes)
