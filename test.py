@@ -88,10 +88,10 @@ def scan():
 # ----- Event LOOP Read and display frames, operate the GUI ----- #
 while True:
     button, values = window.read(timeout=50)
-    print(button)
     if button in (None, 'Quit'):
         break
     elif button == '=SOLVETOBTN-':
+        print('yay')
         window_solveto = sg.Window('Solve To', solveto_layout(), size=(400, 300), no_titlebar=True)
         while True:
             solvebtn, solvevals = window_solveto.read()
