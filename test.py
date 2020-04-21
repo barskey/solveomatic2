@@ -28,7 +28,7 @@ col1 = sg.Column([
     [sg.Frame('Step 2 | Pick a pattern:', [
         [sg.Sizer(200, 1)],
         [sg.Button('', image_filename='images/{}'.format(PATTERNS[SOLVETO][0]), border_width=2, key='-SOLVETOBTN-')],
-        [sg.Text(SOLVETO, size=(15,1), font=('Computerfont', 12, ''), key='-SOLVETO-')]
+        [sg.Text(SOLVETO, size=(15, 2), font=('Computerfont', 14, ''), justification='center', key='-SOLVETO-')]
     ], pad=(0, 0), element_justification='center')]
 ], element_justification='center', pad=(0, 0))
 col2 = sg.Column([
@@ -37,10 +37,10 @@ col2 = sg.Column([
         [sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(160, 160), key='-GRAPH-')],
         # canvas to display image
         [sg.Button('SOLVE!', size=(11, 1), disabled=True)]
-    ], pad=(0, 0))]
+    ], pad=(0, 0), element_justification='center')]
 ], element_justification='center')
 col3 = sg.Column([
-    [sg.Text('Insert cube and GRIP to continue...', font=('Computerfont', 18, ''), key='-INFO-'), sg.Quit(),
+    [sg.Text('Insert cube and GRIP to continue...', font=('Computerfont', 18, ''), text_color='yellow', key='-INFO-'), sg.Quit(),
      sg.Button('Calibrate')]
 ])
 layout = [[col1, col2], [col3]]
@@ -101,6 +101,18 @@ while True:
             if calbtn in (None, 'Quit'):
                 window_cal.Close()
                 break
+    elif button == 'GRIP':
+        # TODO perform grip
+        print('Gripping...')
+        window['GRIP'].update(text='UN-GRIP', button_color=('white', 'red'))
+        window['SCAN'].update(disabled=False)
+    elif button == 'SCAN':
+        # TODO perform scan
+        print('Scanning...')
+        window['SOLVE'].update(disabled=False)
+    elif button == 'SOLVE!':
+        # TODO perform solve
+        print('Solving...')
 
     frame = grab_colors()
     img_bytes = cv2.imencode('.png', frame)[1].tobytes()  # Convert the image to PNG Bytes
