@@ -5,29 +5,32 @@ import cv2
 from vision2 import grab_colors
 from lookups import PATTERNS
 
+# ----- Globals ----- #
+SOLVETO = 'Solid Cube'
+
 # ----- Window setup ----- #
 sg.theme('Dark Grey')
 # sg.set_options(element_padding=(0, 0))
 title = sg.Text('Solve-O-Matic!')
 
 
-def btn(name, state):
+def btn(name, state=False):
     return sg.Button(name, size=(11, 1), disabled=state)
 
 
 # ----- User Input window layout ----- #
 col1 = sg.Column([
     [sg.Frame('Step 1 | Insert cube', [
-        [sg.Sizer(220, 1)],
-        [sg.Button('GRIP', size=(11, 1))],
-        [sg.Button('SCAN', size=(11, 1), disabled=True)]
+        [sg.Sizer(210, 1)],
+        [btn('GRIP')],
+        [btn('SCAN', True)]
     ], pad=(0, 0), element_justification='center')],
     [sg.Frame('Step 2 | Pick a pattern:', [
-        [sg.Sizer(220, 1)],
-        [sg.Combo(list(PATTERNS.keys()), default_value='Solid Cube', key='-SOLVETO-')],
-        [sg.Image('images/_solid.png', key='-SOLVETOIMG-')]
+        [sg.Sizer(210, 1)],
+        [sg.Button('', image_filename='images/{}'.format(PATTERNS[0]), key='-SOLVETOBTN-')],
+        [sg.Text(SOLVETO, font=('Computerfont', 18, ''), key='-SOLVETO-')]
     ], pad=(0, 0), element_justification='center')]
-], element_justification='center', size=(240, 240), pad=(0, 0))
+], element_justification='center', size=(220, 240), pad=(0, 0))
 col2 = sg.Column([
     [sg.Frame('Step 3 | Go', [
         [sg.Sizer(220, 1)],  # pads col to 220 pix
@@ -35,7 +38,7 @@ col2 = sg.Column([
         # canvas to display image
         [sg.Button('SOLVE!', size=(11, 1), disabled=True)]
     ], pad=(0, 0))]
-], element_justification='center', size=(240, 220))
+], element_justification='center', size=(220, 220))
 col3 = sg.Column([
     [sg.Text('Insert cube and GRIP to continue...', font=('Computerfont', 18, ''), key='-INFO-'), sg.Quit(),
      sg.Button('Calibrate')]
@@ -53,14 +56,12 @@ for p, l in PATTERNS.items():
         solveto_layout += [solveto_row]
         solveto_row = []
     solveto_row += [sg.Button('', button_color=(sg.theme_background_color(), sg.theme_background_color()),
-                              image_filename='images/{}'.format(l[0]), image_subsample=1,
+                              image_filename='images/{}'.format(l[0]),
                               border_width=0)]
     count += 1
 if solveto_row:
     solveto_layout += [solveto_row]
-solveto_window = sg.Window('Solve To', solveto_layout, size=(440, 300), no_titlebar=True)
-solveto_window.read()
-solveto_window.close()
+solveto_window = sg.Window('Solve To', solveto_layout, size=(400, 300), no_titlebar=True)
 
 
 # ----- Calibration window layout ----- #
