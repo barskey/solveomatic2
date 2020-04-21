@@ -53,7 +53,7 @@ for p, l in PATTERNS.items():
         solveto_layout += [solveto_row]
         solveto_row = []
     solveto_row += [sg.Button(p, button_color=(sg.theme_background_color(), sg.theme_background_color()),
-                              image_filename='images/{}'.format(l[0]), image_size=(40, 40), image_subsample=1,
+                              image_filename='images/{}'.format(l[0]), image_size=(40, 40), image_subsample=2,
                               border_width=0)]
     count += 1
 if solveto_row:
