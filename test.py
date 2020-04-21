@@ -87,10 +87,11 @@ def scan():
 # ----- Event LOOP Read and display frames, operate the GUI ----- #
 while True:
     button, values = window.read(timeout=50)
+    print(button)
     if button in (None, 'Quit'):
         break
     elif button == '=SOLVETOBTN-':
-        solveto_window.read()
+        solveto_window.read(close=True)
         solveto_window.close()
     elif button == 'Calibrate':
         window_cal = sg.Window('Solve-O-Matic', cal_layout(), size=(480, 320), no_titlebar=True)
