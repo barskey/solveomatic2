@@ -92,8 +92,11 @@ while True:
     if button in (None, 'Quit'):
         break
     elif button == '=SOLVETOBTN-':
-        window_solveto = sg.Window('Solve To', solveto_layout(), size=(400, 300), no_titlebar=True, keep_on_top=True)
-        solvebtn, solvevals = window_solveto.read(close=True)
+        window_solveto = sg.Window('Solve To', solveto_layout(), size=(400, 300), no_titlebar=True)
+        while True:
+            solvebtn, solvevals = window_solveto.read()
+            print(solvebtn)
+            window_solveto.close()
     elif button == 'Calibrate':
         window_cal = sg.Window('Solve-O-Matic', cal_layout(), size=(480, 320), no_titlebar=True)
         while True:
