@@ -25,7 +25,7 @@ col1 = sg.Column([
         [btn('GRIP')],
         [btn('SCAN', True)]
     ], pad=(0, 0), element_justification='center')],
-    [sg.Frame('Step 2 | Pick a pattern:', [
+    [sg.Frame('Step 2 | Pick a pattern', [
         [sg.Sizer(200, 1)],
         [sg.Button('', image_filename='images/{}'.format(PATTERNS[SOLVETO][0]), border_width=2, key='-SOLVETOBTN-')],
         [sg.Text(SOLVETO, size=(15, 2), font=('Computerfont', 14, ''), justification='center', key='-SOLVETO-')]
@@ -36,11 +36,11 @@ col2 = sg.Column([
         [sg.Sizer(220, 1)],  # pads col to 210 pix
         [sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(160, 160), key='-GRAPH-')],
         # canvas to display image
-        [sg.Button('SOLVE!', size=(11, 1), disabled=True)]
+        [btn('SOLVE!', True)]
     ], pad=(0, 0), element_justification='center')]
 ], element_justification='center')
 col3 = sg.Column([
-    [sg.Text('Insert cube and GRIP to continue...', font=('Computerfont', 18, ''), text_color='yellow', key='-INFO-'), sg.Quit(),
+    [sg.Text('Insert cube and GRIP to continue...', font=('Computerfont', 18, ''), text_color='yellow', key='-INFO-'),
      sg.Button('Calibrate')]
 ])
 layout = [[col1, col2], [col3]]
@@ -86,8 +86,7 @@ def scan():
 # ----- Event LOOP Read and display frames, operate the GUI ----- #
 while True:
     button, values = window.read(timeout=50)
-    print(button)
-    if button in (None, 'Quit'):
+    if button in (None, 'Quit', 'Escape:9'):
         break
     elif button == '-SOLVETOBTN-':
         window_solveto = sg.Window('Solve To', solveto_layout(), size=(480, 320), no_titlebar=True)
