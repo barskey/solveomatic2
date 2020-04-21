@@ -56,9 +56,7 @@ def solveto_layout():
         if not count % cols:
             layout += [row]
             row = []
-        row += [sg.Button('', button_color=(sg.theme_background_color(), sg.theme_background_color()),
-                                  image_filename='images/{}'.format(l[0]),
-                                  border_width=0)]
+        row += [sg.Button('', image_filename='images/{}'.format(l[0]), border_width=0, key=p)]
         count += 1
     if row:
         layout += [row]
@@ -93,7 +91,9 @@ while True:
     elif button == '-SOLVETOBTN-':
         window_solveto = sg.Window('Solve To', solveto_layout(), size=(400, 300), no_titlebar=True)
         solvebtn, solvevals = window_solveto.read(close=True)
-        print(solvebtn)
+        SOLVETO = solvebtn
+        window['-SOLVETO-'].update(SOLVETO)
+        window['-SOLVETOBTN-'].update(image_filename='images/{}'.format(PATTERNS[SOLVETO][0]))
     elif button == 'Calibrate':
         window_cal = sg.Window('Solve-O-Matic', cal_layout(), size=(480, 320), no_titlebar=True)
         while True:
