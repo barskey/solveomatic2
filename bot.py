@@ -1,5 +1,6 @@
 import time
 import json
+import Calibration
 from adafruit_servokit import ServoKit
 
 # for convenience in referencing array index
@@ -11,57 +12,34 @@ GRIP_CHANNEL = {'A': 1, 'B': 3}
 TWIST_CHANNEL = {'A': 0, 'B': 2}
 SLEEP_TIME = 0.1  # time to sleep after sending servo cmd
 
-kit = ServoKit(channels=8)
-
 cube = None
-
+kit = ServoKit(channels=8)
 scan_index = 0
+# grip_state is letter o, c, or l
 grip_state = {'A': 'o', 'B': 'o'}
+# twist_state is int ccw:0, center:1, cw:2
 twist_state = {'A': tp['center'], 'B': tp['center']}
-grip_pos = {
-    'A': {'o': 0, 'c': 0, 'l': 0},
-    'B': {'o': 0, 'c': 0, 'l': 0}
-}
-twist_pos = {
-    'A': [0, 0, 0],  # [ccw, center, cw]
-    'B': [0, 0, 0]   # [ccw, center, cw]
 
-}
-servo_range = {
-    'gripA': [520, 2450],
-    'gripB': [750, 2250],
-    'twistA': [750, 2250],
-    'twistB': [680, 2410]
-}
-
-
-def import_caldata():
-    caldata = json.load(open('cal.json'))
-    for g in ['A', 'B']:
-        gripper = 'grip' + g.lower()
-        twister = 'twist' + g.lower()
-        for p in ['o', 'l', 'c']:
-            grip_pos[g][p] = caldata[gripper][p]
-        twist_pos[g] = [caldata[gripper]['ccw'], caldata[gripper]['center'], caldata[gripper]['cw']]
-        servo_range[gripper] = [caldata[gripper]['min'], caldata[gripper]['max']]
-        servo_range[twister] = [caldata[twister]['min'], caldata[twister]['max']]
-
-
-def update_caldata(gripper, prop, value):
-
-    with open('cal.json', 'w') as outfile:
-        json.dump(data, outfile)
-    import_caldata()
+cal = Calibration()
 
 
 def init_servos():
     # initialize servo pulse ranges
-    for g,channel in GRIP_CHANNEL.items():
-        kit.servo[channel].set_pulse_width_range(*servo_range['grip' + g])
-        #print('{} grip{}: {}'.format(channel, g, _servo_range['g' + g]))
-    for g,channel in TWIST_CHANNEL.items():
-        kit.servo[channel].set_pulse_width_range(*servo_range['twist' + g])
-        #print('{} twist{}: {}'.format(channel, g, _servo_range['t' + g]))
+    for g in ['A', 'B']:
+        kit.servo[GRIP_CHANNEL[g]].set_pulse_width_range((cal.servo_range['grip' + g]['min'], cal.servo_range['grip' + g]['max']))
+        kit.servo[GRIP_CHANNEL[g]].set_pulse_width_range((cal.servo_range['twist' + g]['min'], cal.servo_range['twist' + g]['max']))
+
+
+def init_grippers():
+    # move grippers to initial states of load/center
+    for g in ['A', 'B']:
+        grip(g, 'l')
+        twist(g, 'center')
+
+
+def set_servo_angle(s, a):
+    print(s,a)
+    kit.servo[s].angle = a
 
 
 def grip(gripper, cmd):
@@ -70,10 +48,11 @@ def grip(gripper, cmd):
     gripper = 'A' or 'B'
     cmd = 'o' 'c' or 'l' for load
     """
-    set_servo_angle(GRIP_CHANNEL[gripper], grip_pos[gripper][cmd])
+    set_servo_angle(GRIP_CHANNEL[gripper], cal.grip_pos[gripper][cmd])
     time.sleep(SLEEP_TIME)
     grip_state[gripper] = cmd
     return [0, cmd]
+
 
 def twist(gripper, dir):
     """
@@ -117,7 +96,7 @@ def twist(gripper, dir):
     if grip_state[other_gripper] == 'l': # don't twist if other gripper is in load position
         return [-1, 'Can\'t twist {}. Gripper {} currently in load position.'.format(gripper, other_gripper)]
 
-    set_servo_angle(TWIST_CHANNEL[gripper], twist_pos[gripper][new_state])
+    set_servo_angle(TWIST_CHANNEL[gripper], cal.twist_pos[gripper][new_state])
     time.sleep(SLEEP_TIME)
     twist_state[gripper] = new_state
     return [0 if grip_state[other_gripper] == 'o' else 1, dir]  # return 0 if this twist moves cube and changes orientation, else return 1
@@ -139,8 +118,6 @@ def scan_move():
     _scan_index = _scan_index + 1
     return [0, 'Move done']
 """
-
-
-def set_servo_angle(s, a):
-    print(s,a)
-    kit.servo[s].angle = a
+# set up servos and grippers at startup
+init_servos()
+init_grippers()

@@ -46,6 +46,7 @@ col3 = sg.Column([
 layout = [[col1, col2], [col3]]
 window = sg.Window('Solve-O-Matic', layout, size=(480, 320), no_titlebar=True, return_keyboard_events=True)
 
+
 # ----- Solve To window layout ----- #
 def solveto_layout():
     row = []
@@ -71,22 +72,22 @@ def cal_btn(name, key):
 def cal_layout():
     col1 = sg.Column([
         [sg.Frame('Gripper A', [
-            [cal_btn('Open', 'grip-OPEN-A'), cal_btn('<', 'DEC-OPEN-A'), sg.Text('', size=(2, 1), key='OPENA'), cal_btn('>', 'INC-OPEN-A')],
-            [cal_btn('Load', 'grip-LOAD-A'), cal_btn('<', 'DEC-LOAD-A'), sg.Text('', size=(2, 1), key='LOADA'), cal_btn('>', 'INC-LOAD-A')],
-            [cal_btn('Close', 'grip-CLOSE-A'), cal_btn('<', 'DEC-CLOSE-A'), sg.Text('', size=(2, 1), key='CLOSEA'), cal_btn('>', 'INC-CLOSE-A')],
-            [cal_btn('CCW', 'twist-CCW-A'), cal_btn('<', 'DEC-CCW-A'), sg.Text('', size=(2, 1), key='CCWA'), cal_btn('>', 'INC-CCW-A')],
-            [cal_btn('Center', 'twist-CENTER-A'), cal_btn('<', 'DEC-CENTER-A'), sg.Text('', size=(2, 1), key='CENTERA'), cal_btn('>', 'INC-CENTER-A')],
-            [cal_btn('CW', 'twist-CW-A'), cal_btn('<', 'DEC-CW-A'), sg.Text('', size=(2, 1), key='CWA'), cal_btn('>', 'INC-CW-A')]
+            [cal_btn('open', 'grip-open-A'), cal_btn('<', 'dec-open-A'), sg.Text('', size=(2, 1), key='openA'), cal_btn('>', 'inc-open-A')],
+            [cal_btn('load', 'grip-load-A'), cal_btn('<', 'dec-load-A'), sg.Text('', size=(2, 1), key='loadA'), cal_btn('>', 'inc-load-A')],
+            [cal_btn('close', 'grip-close-A'), cal_btn('<', 'dec-close-A'), sg.Text('', size=(2, 1), key='closeA'), cal_btn('>', 'inc-close-A')],
+            [cal_btn('ccw', 'twist-ccw-A'), cal_btn('<', 'dec-ccw-A'), sg.Text('', size=(2, 1), key='ccwA'), cal_btn('>', 'inc-ccw-A')],
+            [cal_btn('center', 'twist-center-A'), cal_btn('<', 'dec-center-A'), sg.Text('', size=(2, 1), key='centerA'), cal_btn('>', 'inc-center-A')],
+            [cal_btn('cw', 'twist-cw-A'), cal_btn('<', 'dec-cw-A'), sg.Text('', size=(2, 1), key='cwA'), cal_btn('>', 'inc-cw-A')]
         ])]
     ])
     col2 = sg.Column([
-        [sg.Frame('Gripper A', [
-            [cal_btn('Open', 'grip-OPEN-B'), cal_btn('<', 'DEC-OPEN-B'), sg.Text('', size=(2, 1), key='OPENB'), cal_btn('>', 'INC-OPEN-B')],
-            [cal_btn('Load', 'grip-LOAD-B'), cal_btn('<', 'DEC-LOAD-B'), sg.Text('', size=(2, 1), key='LOADB'), cal_btn('>', 'INC-LOAD-B')],
-            [cal_btn('Close', 'grip-CLOSE-B'), cal_btn('<', 'DEC-CLOSE-B'), sg.Text('', size=(2, 1), key='CLOSEB'), cal_btn('>', 'INC-CLOSE-B')],
-            [cal_btn('CCW', 'twist-CCW-B'), cal_btn('<', 'DEC-CCW-B'), sg.Text('', size=(2, 1), key='CCWB'), cal_btn('>', 'INC-CCW-B')],
-            [cal_btn('Center', 'twist-CENTER-B'), cal_btn('<', 'DEC-CENTER-B'), sg.Text('', size=(2, 1), key='CENTERB'), cal_btn('>', 'INC-CENTER-B')],
-            [cal_btn('CW', 'twist-CW-B'), cal_btn('<', 'DEC-CW-B'), sg.Text('', size=(2, 1), key='CWB'), cal_btn('>', 'INC-CW-B')]
+        [sg.Frame('Gripper B', [
+            [cal_btn('open', 'grip-open-B'), cal_btn('<', 'dec-open-B'), sg.Text('', size=(2, 1), key='openB'), cal_btn('>', 'inc-open-B')],
+            [cal_btn('load', 'grip-load-B'), cal_btn('<', 'dec-load-B'), sg.Text('', size=(2, 1), key='loadB'), cal_btn('>', 'inc-load-B')],
+            [cal_btn('close', 'grip-close-B'), cal_btn('<', 'dec-close-B'), sg.Text('', size=(2, 1), key='closeB'), cal_btn('>', 'inc-close-B')],
+            [cal_btn('ccw', 'twist-ccw-B'), cal_btn('<', 'dec-ccw-B'), sg.Text('', size=(2, 1), key='ccwB'), cal_btn('>', 'inc-ccw-B')],
+            [cal_btn('center', 'twist-center-B'), cal_btn('<', 'dec-center-B'), sg.Text('', size=(2, 1), key='centerB'), cal_btn('>', 'inc-center-B')],
+            [cal_btn('cw', 'twist-cw-B'), cal_btn('<', 'dec-cw-B'), sg.Text('', size=(2, 1), key='cwB'), cal_btn('>', 'inc-cw-B')]
         ])]
     ])
     layout = [[col1, col2], [sg.Text('', font=('Computerfont', 14), size=(20, 1), key='-STATUS-')]]
@@ -96,9 +97,6 @@ def cal_layout():
 def scan():
     pass
 
-
-# read cal.json file and get saved calibration data
-import_caldata()
 
 # ----- Event LOOP Read and display frames, operate the GUI ----- #
 while True:
@@ -121,12 +119,18 @@ while True:
             elif calbtn != 'TIMEOUT':
                 cmd,pos,gripper = calbtn.split('-')
                 if cmd == 'grip':
-                    grip(gripper, pos[0].lower())
+                    grip(gripper, pos[0])
                 elif cmd == 'twist':
-                    twist(gripper, pos.lower())
-                elif cmd in ('INC', 'DEC'):
-                    # TODO update params
-                    pass
+                    twist(gripper, pos)
+                elif cmd in ('inc', 'dec'):
+                    val = 1 if cmd == 'inc' else -1
+                    prop = ''
+                    if pos in ['open', 'load', 'close']:
+                        prop = 'grip_pos'
+                    elif pos in ['ccw', 'center', 'cw']:
+                        prop = 'twist_pos'
+                    new_val = cal.set_property(prop, gripper, pos, val)
+                    window_cal[pos + gripper].update(new_val)
     elif button == 'GRIP':
         print('Gripping...')
         grip('A', 'l')
