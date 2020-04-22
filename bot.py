@@ -26,8 +26,8 @@ cal = calibration.Calibration()
 def init_servos():
     # initialize servo pulse ranges
     for g in ['A', 'B']:
-        kit.servo[GRIP_CHANNEL[g]].set_pulse_width_range((cal.servo_range['grip' + g]['min'], cal.servo_range['grip' + g]['max']))
-        kit.servo[GRIP_CHANNEL[g]].set_pulse_width_range((cal.servo_range['twist' + g]['min'], cal.servo_range['twist' + g]['max']))
+        kit.servo[GRIP_CHANNEL[g]].set_pulse_width_range(cal.servo_range['grip' + g]['min'], cal.servo_range['grip' + g]['max'])
+        kit.servo[GRIP_CHANNEL[g]].set_pulse_width_range(cal.servo_range['twist' + g]['min'], cal.servo_range['twist' + g]['max'])
 
 
 def init_grippers():
