@@ -117,7 +117,7 @@ while True:
             if calbtn in (None, 'Quit'):
                 window_cal.Close()
                 break
-            elif calbtn != 'TIMEOUT':
+            elif calbtn != '__TIMEOUT__':
                 cmd,pos,gripper = calbtn.split('-')
                 if cmd == 'grip':
                     grip(gripper, pos[0])
