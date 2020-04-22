@@ -1,9 +1,9 @@
 import PySimpleGUI as sg  # Uncomment 1 to run on that framework
-# import PySimpleGUIQt as sg        # runs on Qt with no other changes
-# import PySimpleGUIWeb as sg       # has a known flicker problem that's being worked
 import cv2
+import json
 from vision2 import grab_colors
 from lookups import PATTERNS
+from bot import *
 
 # ----- Globals ----- #
 SOLVETO = 'Solid Cube'
@@ -63,25 +63,42 @@ def solveto_layout():
     return layout
 
 
+def cal_btn(name, key):
+    return sg.Button(name, size=(5, 1), key=key)
+
+
 # ----- Calibration window layout ----- #
 def cal_layout():
-    return ([[
-        sg.Column([
-            [sg.Sizer(200, 1)],
-            [sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(160, 160), key='-CALGRAPH-')],
-            # canvas to display image
-            [sg.Quit(), sg.Button('Calibrate')]
-        ])
-    ]])
-
-
-def grip(state):
-    pass
+    col1 = sg.Column([
+        [sg.Frame('Gripper A', [
+            [cal_btn('Open', 'grip-OPEN-A'), cal_btn('<', 'DEC-OPEN-A'), sg.Text('', size=(2, 1), key='OPENA'), cal_btn('>', 'INC-OPEN-A')],
+            [cal_btn('Load', 'grip-LOAD-A'), cal_btn('<', 'DEC-LOAD-A'), sg.Text('', size=(2, 1), key='LOADA'), cal_btn('>', 'INC-LOAD-A')],
+            [cal_btn('Close', 'grip-CLOSE-A'), cal_btn('<', 'DEC-CLOSE-A'), sg.Text('', size=(2, 1), key='CLOSEA'), cal_btn('>', 'INC-CLOSE-A')],
+            [cal_btn('CCW', 'twist-CCW-A'), cal_btn('<', 'DEC-CCW-A'), sg.Text('', size=(2, 1), key='CCWA'), cal_btn('>', 'INC-CCW-A')],
+            [cal_btn('Center', 'twist-CENTER-A'), cal_btn('<', 'DEC-CENTER-A'), sg.Text('', size=(2, 1), key='CENTERA'), cal_btn('>', 'INC-CENTER-A')],
+            [cal_btn('CW', 'twist-CW-A'), cal_btn('<', 'DEC-CW-A'), sg.Text('', size=(2, 1), key='CWA'), cal_btn('>', 'INC-CW-A')]
+        ])]
+    ])
+    col2 = sg.Column([
+        [sg.Frame('Gripper A', [
+            [cal_btn('Open', 'grip-OPEN-B'), cal_btn('<', 'DEC-OPEN-B'), sg.Text('', size=(2, 1), key='OPENB'), cal_btn('>', 'INC-OPEN-B')],
+            [cal_btn('Load', 'grip-LOAD-B'), cal_btn('<', 'DEC-LOAD-B'), sg.Text('', size=(2, 1), key='LOADB'), cal_btn('>', 'INC-LOAD-B')],
+            [cal_btn('Close', 'grip-CLOSE-B'), cal_btn('<', 'DEC-CLOSE-B'), sg.Text('', size=(2, 1), key='CLOSEB'), cal_btn('>', 'INC-CLOSE-B')],
+            [cal_btn('CCW', 'twist-CCW-B'), cal_btn('<', 'DEC-CCW-B'), sg.Text('', size=(2, 1), key='CCWB'), cal_btn('>', 'INC-CCW-B')],
+            [cal_btn('Center', 'twist-CENTER-B'), cal_btn('<', 'DEC-CENTER-B'), sg.Text('', size=(2, 1), key='CENTERB'), cal_btn('>', 'INC-CENTER-B')],
+            [cal_btn('CW', 'twist-CW-B'), cal_btn('<', 'DEC-CW-B'), sg.Text('', size=(2, 1), key='CWB'), cal_btn('>', 'INC-CW-B')]
+        ])]
+    ])
+    layout = [[col1, col2], [sg.Text('', font=('Computerfont', 14), size=(20, 1), key='-STATUS-')]]
+    return layout
 
 
 def scan():
     pass
 
+
+# read cal.json file and get saved calibration data
+import_caldata()
 
 # ----- Event LOOP Read and display frames, operate the GUI ----- #
 while True:
@@ -101,9 +118,25 @@ while True:
             if calbtn in (None, 'Quit'):
                 window_cal.Close()
                 break
+            elif calbtn != 'TIMEOUT':
+                cmd,pos,gripper = calbtn.split('-')
+                if cmd == 'grip':
+                    grip(gripper, pos[0].lower())
+                elif cmd == 'twist':
+                    twist(gripper, pos.lower())
+                elif cmd in ('INC', 'DEC'):
+                    # TODO update params
+                    pass
     elif button == 'GRIP':
-        # TODO perform grip
         print('Gripping...')
+        grip('A', 'l')
+        grip('B', 'l')
+        window['GRIP'].update(text='UN-GRIP', button_color=('white', 'red'))
+        window['SCAN'].update(disabled=False)
+    elif button == 'UN-GRIP':
+        print('Un-gripping...')
+        grip('A', 'o')
+        grip('B', 'o')
         window['GRIP'].update(text='UN-GRIP', button_color=('white', 'red'))
         window['SCAN'].update(disabled=False)
     elif button == 'SCAN':

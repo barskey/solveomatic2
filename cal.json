@@ -1,0 +1,7 @@
+{
+  "gripa": {"o": 122, "c": 68, "l": 78, "ccw": 0, "cw": 179, "center": 90, "min": 750, "max": 2250},
+  "gripb": {"o": 90, "c": 50, "l": 60, "ccw": 5, "cw": 180, "center": 88, "min": 680, "max": 2420},
+  "twista": {"min": 480, "max": 2550},
+  "twistb": {"min": 480, "max": 2590},
+  "color_limits": {"sat_W": 0.2, "val_W": 0.59, "orange_L": 0.02, "orange_H": 0.09, "yellow_H": 0.2, "green_H": 0.39, "blue_H": 0.62}
+}
