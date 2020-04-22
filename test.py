@@ -65,29 +65,29 @@ def solveto_layout():
 
 
 def cal_btn(name, key):
-    return sg.Button(name, size=(5, 1), key=key)
+    return sg.Button(name, key=key)
 
 
 # ----- Calibration window layout ----- #
 def cal_layout():
     col1 = sg.Column([
         [sg.Frame('Gripper A', [
-            [cal_btn('open', 'grip-open-A'), cal_btn('<', 'dec-open-A'), sg.Text('', size=(2, 1), key='openA'), cal_btn('>', 'inc-open-A')],
-            [cal_btn('load', 'grip-load-A'), cal_btn('<', 'dec-load-A'), sg.Text('', size=(2, 1), key='loadA'), cal_btn('>', 'inc-load-A')],
-            [cal_btn('close', 'grip-close-A'), cal_btn('<', 'dec-close-A'), sg.Text('', size=(2, 1), key='closeA'), cal_btn('>', 'inc-close-A')],
-            [cal_btn('ccw', 'twist-ccw-A'), cal_btn('<', 'dec-ccw-A'), sg.Text('', size=(2, 1), key='ccwA'), cal_btn('>', 'inc-ccw-A')],
-            [cal_btn('center', 'twist-center-A'), cal_btn('<', 'dec-center-A'), sg.Text('', size=(2, 1), key='centerA'), cal_btn('>', 'inc-center-A')],
-            [cal_btn('cw', 'twist-cw-A'), cal_btn('<', 'dec-cw-A'), sg.Text('', size=(2, 1), key='cwA'), cal_btn('>', 'inc-cw-A')]
+            [cal_btn('open', 'grip-open-A'), cal_btn('<', 'dec-open-A'), sg.Text('', size=(3, 1), key='openA'), cal_btn('>', 'inc-open-A')],
+            [cal_btn('load', 'grip-load-A'), cal_btn('<', 'dec-load-A'), sg.Text('', size=(3, 1), key='loadA'), cal_btn('>', 'inc-load-A')],
+            [cal_btn('close', 'grip-close-A'), cal_btn('<', 'dec-close-A'), sg.Text('', size=(3, 1), key='closeA'), cal_btn('>', 'inc-close-A')],
+            [cal_btn('ccw', 'twist-ccw-A'), cal_btn('<', 'dec-ccw-A'), sg.Text('', size=(3, 1), key='ccwA'), cal_btn('>', 'inc-ccw-A')],
+            [cal_btn('center', 'twist-center-A'), cal_btn('<', 'dec-center-A'), sg.Text('', size=(3, 1), key='centerA'), cal_btn('>', 'inc-center-A')],
+            [cal_btn('cw', 'twist-cw-A'), cal_btn('<', 'dec-cw-A'), sg.Text('', size=(3, 1), key='cwA'), cal_btn('>', 'inc-cw-A')]
         ])]
     ])
     col2 = sg.Column([
         [sg.Frame('Gripper B', [
-            [cal_btn('open', 'grip-open-B'), cal_btn('<', 'dec-open-B'), sg.Text('', size=(2, 1), key='openB'), cal_btn('>', 'inc-open-B')],
-            [cal_btn('load', 'grip-load-B'), cal_btn('<', 'dec-load-B'), sg.Text('', size=(2, 1), key='loadB'), cal_btn('>', 'inc-load-B')],
-            [cal_btn('close', 'grip-close-B'), cal_btn('<', 'dec-close-B'), sg.Text('', size=(2, 1), key='closeB'), cal_btn('>', 'inc-close-B')],
-            [cal_btn('ccw', 'twist-ccw-B'), cal_btn('<', 'dec-ccw-B'), sg.Text('', size=(2, 1), key='ccwB'), cal_btn('>', 'inc-ccw-B')],
-            [cal_btn('center', 'twist-center-B'), cal_btn('<', 'dec-center-B'), sg.Text('', size=(2, 1), key='centerB'), cal_btn('>', 'inc-center-B')],
-            [cal_btn('cw', 'twist-cw-B'), cal_btn('<', 'dec-cw-B'), sg.Text('', size=(2, 1), key='cwB'), cal_btn('>', 'inc-cw-B')]
+            [cal_btn('open', 'grip-open-B'), cal_btn('<', 'dec-open-B'), sg.Text('', size=(3, 1), key='openB'), cal_btn('>', 'inc-open-B')],
+            [cal_btn('load', 'grip-load-B'), cal_btn('<', 'dec-load-B'), sg.Text('', size=(3, 1), key='loadB'), cal_btn('>', 'inc-load-B')],
+            [cal_btn('close', 'grip-close-B'), cal_btn('<', 'dec-close-B'), sg.Text('', size=(3, 1), key='closeB'), cal_btn('>', 'inc-close-B')],
+            [cal_btn('ccw', 'twist-ccw-B'), cal_btn('<', 'dec-ccw-B'), sg.Text('', size=(3, 1), key='ccwB'), cal_btn('>', 'inc-ccw-B')],
+            [cal_btn('center', 'twist-center-B'), cal_btn('<', 'dec-center-B'), sg.Text('', size=(3, 1), key='centerB'), cal_btn('>', 'inc-center-B')],
+            [cal_btn('cw', 'twist-cw-B'), cal_btn('<', 'dec-cw-B'), sg.Text('', size=(3, 1), key='cwB'), cal_btn('>', 'inc-cw-B')]
         ])]
     ])
     layout = [[col1, col2], [sg.Text('', font=('Computerfont', 14), size=(20, 1), key='-STATUS-')]]
@@ -104,16 +104,16 @@ while True:
     if button in (None, 'Quit', 'Escape:9'):
         break
     elif button == '-SOLVETOBTN-':
-        window_solveto = sg.Window('Solve To', solveto_layout(), size=(480, 320), no_titlebar=True)
+        window_solveto = sg.Window('Solve To', solveto_layout(), size=(480, 320), no_titlebar=True, return_keyboard_events=True)
         solvebtn, solvevals = window_solveto.read(close=True)
         SOLVETO = solvebtn
         window['-SOLVETO-'].update(SOLVETO)
         window['-SOLVETOBTN-'].update(image_filename='images/{}'.format(PATTERNS[SOLVETO][0]))
     elif button == 'Calibrate':
-        window_cal = sg.Window('Solve-O-Matic', cal_layout(), size=(480, 320), no_titlebar=True)
+        window_cal = sg.Window('Solve-O-Matic', cal_layout(), size=(480, 320), no_titlebar=True, return_keyboard_events=True)
         while True:
             calbtn, calvals = window_cal.read(timeout=50)
-            if calbtn in (None, 'Quit'):
+            if calbtn in (None, 'Quit', 'Escape:9'):
                 window_cal.Close()
                 break
             elif calbtn != '__TIMEOUT__':
