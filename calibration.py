@@ -39,8 +39,8 @@ class Calibration:
     def set_property(self, prop, gripper, param, value):
         new_val = 0
         if prop == "grip_pos":
-            new_val = self.grip_pos[gripper][param] + value
-            self.grip_pos[gripper][param] = new_val
+            new_val = self.grip_pos[gripper][param[0]] + value
+            self.grip_pos[gripper][param[0]] = new_val
         elif prop == "twist_pos":
             new_val = self.twist_pos[gripper][param] + value
             self.twist_pos[gripper][param] = new_val

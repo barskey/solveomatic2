@@ -38,7 +38,7 @@ def init_grippers():
 
 
 def set_servo_angle(s, a):
-    print(s,a)
+    print('servo:{} angle:{}'.format(s, a))
     kit.servo[s].angle = a
 
 
