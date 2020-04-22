@@ -1,6 +1,6 @@
 import time
 import json
-import Calibration
+import calibration
 from adafruit_servokit import ServoKit
 
 # for convenience in referencing array index
@@ -20,7 +20,7 @@ grip_state = {'A': 'o', 'B': 'o'}
 # twist_state is int ccw:0, center:1, cw:2
 twist_state = {'A': tp['center'], 'B': tp['center']}
 
-cal = Calibration()
+cal = calibration.Calibration()
 
 
 def init_servos():
