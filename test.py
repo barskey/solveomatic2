@@ -112,6 +112,7 @@ while True:
     elif button == 'Calibrate':
         window_cal = sg.Window('Solve-O-Matic', cal_layout(), size=(480, 320), no_titlebar=True)
         while True:
+            print(calbtn)
             calbtn, calvals = window_cal.read(timeout=50)
             if calbtn in (None, 'Quit'):
                 window_cal.Close()
