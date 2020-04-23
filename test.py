@@ -150,8 +150,8 @@ while True:
                 if cmd == 'grip':
                     result = grip(gripper, pos[0])
                 elif cmd == 'twist':
-                    print(cmd, gripper, pos)
                     result = twist(gripper, pos)
+                    print(result)
                 elif cmd in ('inc', 'dec'):
                     val = 1 if cmd == 'inc' else -1
                     prop = ''
