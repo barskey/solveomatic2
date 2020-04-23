@@ -94,7 +94,7 @@ def cal_layout():
             [cal_btn('min', 'grip-max-B'), cal_btn('<', 'dec-max-B', 1), sg.T('', size=(4, 1), key='maxB'), cal_btn('>', 'inc-max-B', 1)]
         ])]
     ])
-    layout = [[col1, col2], [sg.Text('', font=('Computerfont', 14), size=(20, 1), key='-STATUS-'), cal_btn(('Done', '-DONE-'))]]
+    layout = [[col1, col2], [sg.Text('', font=('Computerfont', 14), size=(20, 1), key='-STATUS-'), cal_btn('Done', '-DONE-')]]
     return layout
 
 
