@@ -39,8 +39,8 @@ col2 = sg.Col([
     ], pad=(0, 0), element_justification='center')]
 ], element_justification='center')
 col3 = sg.Col([
-    [sg.T('Insert cube and GRIP to continue...', font=('Computerfont', 18, ''), text_color='yellow', key='-INFO-'),
-     sg.Button('Calibrate'), sg.Button('Colors')]
+    [sg.T('Insert cube and GRIP to continue...', font=('Computerfont', 18, ''), text_color='yellow', key='-INFO-')],
+    [sg.Sizer(200, 1), sg.Button('Calibrate'), sg.Button('Colors')]
 ])
 layout = [[col1, col2], [col3]]
 window = sg.Window('Solve-O-Matic', layout, size=(480, 320), no_titlebar=True, return_keyboard_events=True)
