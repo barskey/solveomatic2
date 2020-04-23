@@ -150,6 +150,7 @@ while True:
                 if cmd == 'grip':
                     result = grip(gripper, pos[0])
                 elif cmd == 'twist':
+                    print(cmd, gripper, pos)
                     result = twist(gripper, pos)
                 elif cmd in ('inc', 'dec'):
                     val = 1 if cmd == 'inc' else -1
@@ -162,7 +163,7 @@ while True:
                         prop = 'servo_range'
                         val *= 10
                     new_val = cal.set_property(prop, gripper, pos, val)
-                    result = new_val
+                    result = ['Success', new_val]
                     window_cal[pos + gripper].update(new_val)
                 window_cal['-STATUS-'].update('Result {}:{}'.format(result[0], result[1]))
     elif button == 'Colors':
