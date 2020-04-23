@@ -86,7 +86,7 @@ def twist(gripper, dir):
         else:
             new_state = twist_state[gripper] + 1
     elif dir in ['ccw', 'center', 'cw']:
-        new_state  = tp[dir]
+        new_state = tp[dir]
     
     if new_state is None:
         return [-1, 'Could not twist. Unknown error.']
@@ -96,7 +96,7 @@ def twist(gripper, dir):
     if grip_state[other_gripper] == 'l': # don't twist if other gripper is in load position
         return [-1, 'Can\'t twist {}. Gripper {} currently in load position.'.format(gripper, other_gripper)]
 
-    set_servo_angle(TWIST_CHANNEL[gripper], cal.twist_pos[gripper][new_state])
+    set_servo_angle(TWIST_CHANNEL[gripper], cal.twist_pos[gripper][tpk[new_state]])
     time.sleep(SLEEP_TIME)
     twist_state[gripper] = new_state
     return [0 if grip_state[other_gripper] == 'o' else 1, dir]  # return 0 if this twist moves cube and changes orientation, else return 1
