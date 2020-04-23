@@ -40,16 +40,28 @@ class Calibration:
         new_val = 0
         if prop == "grip_pos":
             new_val = self.grip_pos[gripper][param[0]] + value
-            self.grip_pos[gripper][param[0]] = new_val
+            if 0 <= new_val <= 180:
+                self.grip_pos[gripper][param[0]] = new_val
+            else:
+                return self.grip_pos[gripper][param[0]]
         elif prop == "twist_pos":
             new_val = self.twist_pos[gripper][param] + value
-            self.twist_pos[gripper][param] = new_val
+            if 0 <= new_val <= 180:
+                self.twist_pos[gripper][param] = new_val
+            else:
+                return self.twist_pos[gripper][param]
         elif prop == "servo_range":
             new_val = self.servo_range[gripper][param] + value
-            self.servo_range[gripper][param] = new_val
+            if new_val > 0:
+                self.servo_range[gripper][param] = new_val
+            else:
+                return self.servo_range[gripper][param]
         elif prop == "color_limits":
             new_val = self.color_limits[param] + value
-            self.color_limits[param] = new_val
+            if 0 <= new_val <= 1:
+                self.color_limits[param] = new_val
+            else:
+                return self.color_limits[param]
         self.write_to_file()
         return new_val
 

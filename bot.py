@@ -70,9 +70,11 @@ def twist(gripper, dir):
     new_state = None
 
     if dir == 'min':
+        init_servos()  # make sure any new settings have been applied
         set_servo_angle(TWIST_CHANNEL[gripper], 0)
         return [2, 'min']
     if dir == 'max':
+        init_servos()  # make sure any new settings have been applied
         set_servo_angle(TWIST_CHANNEL[gripper], 180)
         return [2, 'max']
     if dir == '-':
