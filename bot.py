@@ -10,7 +10,7 @@ tpk = ['ccw', 'center', 'cw']
 # channels on servo pwm board
 GRIP_CHANNEL = {'A': 1, 'B': 3}
 TWIST_CHANNEL = {'A': 0, 'B': 2}
-SLEEP_TIME = 0.1  # time to sleep after sending servo cmd
+SLEEP_TIME = 0.25  # time to sleep after sending servo cmd
 
 cube = None
 kit = ServoKit(channels=8)
