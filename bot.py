@@ -33,7 +33,7 @@ def init_servos():
 def init_grippers():
     # move grippers to initial states of load/center
     for g in ['A', 'B']:
-        grip(g, 'l')
+        grip(g, 'o')
         twist(g, 'center')
 
 
