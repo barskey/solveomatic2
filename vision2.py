@@ -8,6 +8,7 @@ import numpy as np
 import vision_params
 
 grid_N = 25  # number of grid-squares in vertical direction
+img_bytes = None  # byte array for saving image frames
 
 
 def drawgrid(img, n):
@@ -340,8 +341,9 @@ def grab_colors():
 
     # the results supplied by getcolors are used in client_gui2.py for the "Webcam import"
     vision_params.face_hsv, vision_params.face_col = getcolors(cf, ef, acf, aef, m)
+
     #print(vision_params.face_col)
-    return(bgrcap)
+    img_bytes = cv2.imencode('.png', bgrcap)[1].tobytes()  # Convert the image to PNG Bytes
 
     #drawgrid(bgrcap, grid_N)
 
