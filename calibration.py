@@ -51,11 +51,11 @@ class Calibration:
             else:
                 return self.twist_pos[gripper][param]
         elif prop == "servo_range":
-            new_val = self.servo_range[gripper][param] + value
+            new_val = self.servo_range['grip' + gripper][param] + value
             if new_val > 0:
-                self.servo_range[gripper][param] = new_val
+                self.servo_range['grip' + gripper][param] = new_val
             else:
-                return self.servo_range[gripper][param]
+                return self.servo_range['grip' + gripper][param]
         elif prop == "color_limits":
             new_val = self.color_limits[param] + value
             if 0 <= new_val <= 1:
