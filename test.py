@@ -105,8 +105,8 @@ def cal_layout():
 def colors_layout():
     rows = []
     for param, val in cal.color_limits.items():
-        rows += [sg.T(val, size=(8, 1)), cal_btn('<', 'dec-' + param, 1), sg.T(val, size=(4, 1), key=param), cal_btn('>', 'inc-' + param, 1)]
-    col1 = sg.Col([rows])
+        rows += [[sg.T(val, size=(8, 1)), cal_btn('<', 'dec-' + param, 1), sg.T(val, size=(4, 1), key=param), cal_btn('>', 'inc-' + param, 1)]]
+    col1 = sg.Col(rows)
     col2 = sg.Col([
         [sg.Sizer(220, 1)],  # pads col to 220 pix
         [sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(160, 160), key='-GRAPH-')],
