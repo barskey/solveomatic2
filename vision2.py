@@ -287,7 +287,7 @@ def find_squares(bgrcap, n):
 
 def grab_colors():
     """Find the cube in the webcam picture and grab the colors of the facelets."""
-    global cent, width, height, hsv, color_mask, white_mask
+    global cent, width, height, hsv, color_mask, white_mask, img_bytes
     cap = cv2.VideoCapture(0)
     _, frame = cap.read()
 
