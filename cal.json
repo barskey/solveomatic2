@@ -33,12 +33,12 @@
       "max": 2250
     },
     "twistA": {
-      "min": 750,
-      "max": 2250
+      "min": 510,
+      "max": 2550
     },
     "twistB": {
-      "min": 680,
-      "max": 2410
+      "min": 510,
+      "max": 2550
     }
   },
   "color_limits": {
