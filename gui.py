@@ -180,7 +180,7 @@ while True:
                 new_val = cal.set_property(None, None, param, val)
                 window_colors[param].update(new_val)
 
-            window_colors['-GRAPH-'].draw_image(location=(0, 160), data=vision_params.img_bytes)
+            window_colors['-GRAPH-'].draw_image(location=(0, 160), data=img_bytes)
 
     elif button == 'GRIP':
         print('Gripping...')
@@ -202,6 +202,6 @@ while True:
         print('Solving...')
         solve()
     print(vision_params.img_bytes)
-    window['-GRAPH-'].draw_image(location=(0, 160), data=vision_params.img_bytes)
+    window['-GRAPH-'].draw_image(location=(0, 160), data=img_bytes)
 
 window.Close()
