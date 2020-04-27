@@ -343,7 +343,6 @@ def grab_colors():
 
     #print(vision_params.face_col)
     vision_params.img_bytes = cv2.imencode('.png', bgrcap)[1].tobytes()  # Convert the image to PNG Bytes
-    print(vision_params.img_bytes)
     #drawgrid(bgrcap, grid_N)
 
     # show the windows

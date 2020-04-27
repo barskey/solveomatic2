@@ -201,7 +201,7 @@ while True:
     elif button == 'SOLVE!':
         print('Solving...')
         solve()
-
+    print(img_bytes)
     window['-GRAPH-'].draw_image(location=(0, 160), data=img_bytes)
 
 window.Close()
