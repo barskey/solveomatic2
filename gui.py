@@ -1,6 +1,4 @@
 import PySimpleGUI as sg  # Uncomment 1 to run on that framework
-from threading import Thread
-from vision2 import grab_colors
 import vision_params
 from lookups import PATTERNS
 from bot import *
