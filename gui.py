@@ -1,5 +1,5 @@
 import PySimpleGUI as sg  # Uncomment 1 to run on that framework
-from vision2 import img_bytes
+from vision_params import img_bytes
 from lookups import PATTERNS
 from bot import *
 
@@ -129,7 +129,6 @@ def solve():
 
 # ----- Event LOOP Read and display frames, operate the GUI ----- #
 while True:
-    global img_bytes
     button, values = window.read(timeout=50)
     if button in (None, 'Quit', 'Escape:9'):
         break

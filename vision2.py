@@ -8,7 +8,6 @@ import numpy as np
 import vision_params
 
 grid_N = 25  # number of grid-squares in vertical direction
-img_bytes = None  # byte array for saving image frames
 
 
 def drawgrid(img, n):
@@ -287,7 +286,7 @@ def find_squares(bgrcap, n):
 
 def grab_colors():
     """Find the cube in the webcam picture and grab the colors of the facelets."""
-    global cent, width, height, hsv, color_mask, white_mask, img_bytes
+    global cent, width, height, hsv, color_mask, white_mask
     cap = cv2.VideoCapture(0)
     _, frame = cap.read()
 
@@ -343,7 +342,7 @@ def grab_colors():
     vision_params.face_hsv, vision_params.face_col = getcolors(cf, ef, acf, aef, m)
 
     #print(vision_params.face_col)
-    img_bytes = cv2.imencode('.png', bgrcap)[1].tobytes()  # Convert the image to PNG Bytes
+    vision_params.img_bytes = cv2.imencode('.png', bgrcap)[1].tobytes()  # Convert the image to PNG Bytes
 
     #drawgrid(bgrcap, grid_N)
 
