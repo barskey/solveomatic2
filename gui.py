@@ -1,5 +1,7 @@
 import PySimpleGUI as sg  # Uncomment 1 to run on that framework
-from vision_params import img_bytes
+from threading import Thread
+from vision2 import grab_colors
+import vision_params
 from lookups import PATTERNS
 from bot import *
 
@@ -180,7 +182,7 @@ while True:
                 new_val = cal.set_property(None, None, param, val)
                 window_colors[param].update(new_val)
 
-            window_colors['-GRAPH-'].draw_image(location=(0, 160), data=img_bytes)
+            window_colors['-GRAPH-'].draw_image(location=(0, 160), data=vision_params.img_bytes)
 
     elif button == 'GRIP':
         print('Gripping...')
@@ -201,7 +203,7 @@ while True:
     elif button == 'SOLVE!':
         print('Solving...')
         solve()
-    print(img_bytes)
-    window['-GRAPH-'].draw_image(location=(0, 160), data=img_bytes)
+    print(vision_params.img_bytes)
+    window['-GRAPH-'].draw_image(location=(0, 160), data=vision_params.img_bytes)
 
 window.Close()
