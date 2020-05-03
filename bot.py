@@ -4,13 +4,13 @@
 import time
 import json
 import calibration
-import board
-import neopixel
+#import board
+#import neopixel
 from adafruit_servokit import ServoKit
 
 # led light ring
-light = neopixel.NeoPixel(board.D10, 8)
-light.fill((255, 255, 255))
+#light = neopixel.NeoPixel(board.D10, 8)
+#light.fill((255, 255, 255))
 
 # for convenience in referencing array index
 tp = {'ccw': 0, 'center': 1, 'cw': 2}
