@@ -164,7 +164,6 @@ while True:
                     result = grip(gripper, pos[0])
                 elif cmd == 'twist':
                     result = twist(gripper, pos)
-                    print(result)
                 elif cmd in ('inc', 'dec'):
                     val = 1 if cmd == 'inc' else -1
                     prop = ''
