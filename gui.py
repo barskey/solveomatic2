@@ -132,6 +132,7 @@ def scan():
                     r = grip(g, c)
                     print("Result:{}, {}".format(r[0], r[1]))
         print("face colors:<something>")
+        time.sleep(2)
 
 
 def solve():
@@ -212,7 +213,7 @@ while True:
     elif button == 'SOLVE!':
         print('Solving...')
         solve()
-    print(vision_params.img_bytes)
+    #print(vision_params.img_bytes)
     window['-GRAPH-'].draw_image(location=(0, 160), data=vision_params.img_bytes)
 
 window.Close()
