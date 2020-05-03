@@ -199,10 +199,10 @@ PATTERNS = {
 # perform moves, then scan -- hence no moves before scanning U
 MOVES_FOR_SCAN = {
     U: [''],                                                 # UFD-scan U
-    L: ['Bo','A+','Bc','Ao','A-','B+','Ac','Bo','B-','Bc'],  # LDR-scan L
-    F: ['Bo','A-','Bc','Ao','A+','Ac'],                      # FDB-scan F
-    R: ['Bo','A-','Bc','Ao','A+','Ac'],                      # RDL-scan R
-    B: ['Bo','A-','Bc','Ao','A+','Ac'],                      # BDF-scan B
-    D: ['Ao','B-','Ac','Bo','B-','A+','Bc',
-        'Ao','A-','B-','Ac','Bo','B-','Bc']                  # DBU-scan D
+    L: ['Ao','B+','Ac','Bo','B-','A+','Bc','Ao','A-','Ac'],  # LDR-scan L
+    F: ['Ao','B-','Ac','Bo','B+','Bc'],                      # FDB-scan F
+    R: ['Ao','B-','Ac','Bo','B+','Bc'],                      # RDL-scan R
+    B: ['Ao','B-','Ac','Bo','B+','Bc'],                      # BDF-scan B
+    D: ['Bo','A+','Bc','Ao','A-','B+','Ac',
+        'Bo','B-','A+','Bc','Ao','A-','Ac']                  # DBU-scan D
 }
