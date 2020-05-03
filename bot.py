@@ -48,7 +48,7 @@ def init_servos():
 def init_grippers():
     # move grippers to initial states of load/center
     for g in ['A', 'B']:
-        grip(g, 'o')
+        grip(g, 'l')
         twist(g, 'center')
 
 
@@ -98,7 +98,7 @@ def twist(gripper, dir):
         else:
             new_state = twist_state[gripper] - 1
     elif dir == '+':
-        if twist_state[gripper] == len(twist_state[gripper]) - 1:
+        if twist_state[gripper] == tpk[-1]:
             return [-1, 'Already at max cw position.']
         else:
             new_state = twist_state[gripper] + 1
