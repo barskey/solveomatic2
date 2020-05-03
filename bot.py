@@ -1,7 +1,16 @@
+#sudo pip3 install rpi_ws281x adafruit-circuitpython-neopixel
+#sudo python3 -m pip install --force-reinstall adafruit-blinka
+
 import time
 import json
 import calibration
+import board
+import neopixel
 from adafruit_servokit import ServoKit
+
+# led light ring
+light = neopixel.NeoPixel(board.D10, 8)
+light.fill((255, 255, 255))
 
 # for convenience in referencing array index
 tp = {'ccw': 0, 'center': 1, 'cw': 2}
