@@ -203,6 +203,6 @@ MOVES_FOR_SCAN = {
     F: ['Ao','B-','Ac','Bo','B+','Bc'],                      # FDB-scan F
     R: ['Ao','B-','Ac','Bo','B+','Bc'],                      # RDL-scan R
     B: ['Ao','B-','Ac','Bo','B+','Bc'],                      # BDF-scan B
-    D: ['Bo','A+','Bc','Ao','A-','B+','Ac',
-        'Bo','B-','A+','Bc','Ao','A-','Ac']                  # DBU-scan D
+    D: ['Bo','A+','Bc','Ao','A-','B-','Ac',
+        'Bo','B+','A+','Bc','Ao','A-','Ac']                  # DBU-scan D
 }

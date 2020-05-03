@@ -132,6 +132,7 @@ def scan():
                     r = grip(g, c)
                     print("Result:{}, {}".format(r[0], r[1]))
         print("face colors:<something>")
+        # TODO capture colors here
         time.sleep(2)
 
 
