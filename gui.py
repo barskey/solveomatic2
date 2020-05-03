@@ -1,6 +1,6 @@
 import PySimpleGUI as sg  # Uncomment 1 to run on that framework
 import vision_params
-from lookups import PATTERNS
+from lookups import PATTERNS, MOVES_FOR_SCAN
 from bot import *
 
 # ----- Globals ----- #
@@ -107,8 +107,7 @@ def colors_layout():
     col1 = sg.Col(rows)
     col2 = sg.Col([
         [sg.Sizer(220, 1)],  # pads col to 220 pix
-        [sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(160, 160), key='-GRAPH-')],
-        [btn('SOLVE!', True)]
+        [sg.Graph(canvas_size=(160, 160), graph_bottom_left=(0, 0), graph_top_right=(160, 160), key='-GRAPH-')]
     ], element_justification='center')
     layout = [
         [col1, col2],
@@ -118,8 +117,21 @@ def colors_layout():
 
 
 def scan():
-    # TODO make scan function
-    pass
+    for face, moves in MOVES_FOR_SCAN.items():
+        print('Scanning face {}...'.format(face))
+        for move in moves:
+            if len(move) > 0:
+                g = move[0]
+                c = move[1]
+                if c in ['+', '-']:
+                    r = twist(g, c)
+                    print("Result:{}, {}".format(r[0], r[1]))
+                    #if r[0] == 0:
+                        #_cube.set_orientation(g, c)
+                elif c in ['o', 'c', 'l']:
+                    r = grip(g, c)
+                    print("Result:{}, {}".format(r[0], r[1]))
+        print("face colors:<something>")
 
 
 def solve():
@@ -196,8 +208,8 @@ while True:
         window['SCAN'].update(disabled=False)
     elif button == 'SCAN':
         print('Scanning...')
-        window['SOLVE!'].update(disabled=False)
         scan()
+        window['SOLVE!'].update(disabled=False)
     elif button == 'SOLVE!':
         print('Solving...')
         solve()

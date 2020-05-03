@@ -1,5 +1,7 @@
 #sudo pip3 install rpi_ws281x adafruit-circuitpython-neopixel
 #sudo python3 -m pip install --force-reinstall adafruit-blinka
+from threading import Thread
+from queue import Queue
 
 import time
 import json
@@ -11,6 +13,10 @@ from adafruit_servokit import ServoKit
 # led light ring
 #light = neopixel.NeoPixel(board.D10, 8)
 #light.fill((255, 255, 255))
+
+# thread queues for servo moves
+move_queue_a = Queue(maxsize=30)
+move_queue_b = Queue(maxsize=30)
 
 # for convenience in referencing array index
 tp = {'ccw': 0, 'center': 1, 'cw': 2}
@@ -49,6 +55,7 @@ def init_grippers():
 def set_servo_angle(s, a):
     print('servo:{} angle:{}'.format(s, a))
     kit.servo[s].angle = a
+    time.sleep(SLEEP_TIME)
 
 
 def grip(gripper, cmd):
@@ -58,7 +65,6 @@ def grip(gripper, cmd):
     cmd = 'o' 'c' or 'l' for load
     """
     set_servo_angle(GRIP_CHANNEL[gripper], cal.grip_pos[gripper][cmd])
-    time.sleep(SLEEP_TIME)
     grip_state[gripper] = cmd
     return [0, cmd]
 
@@ -108,9 +114,10 @@ def twist(gripper, dir):
         return [-1, 'Can\'t twist {}. Gripper {} currently in load position.'.format(gripper, other_gripper)]
 
     set_servo_angle(TWIST_CHANNEL[gripper], cal.twist_pos[gripper][tpk[new_state]])
-    time.sleep(SLEEP_TIME)
     twist_state[gripper] = new_state
     return [0 if grip_state[other_gripper] == 'o' else 1, dir]  # return 0 if this twist moves cube and changes orientation, else return 1
+
+
 """
 def scan_move():
     if _scan_index >= len(MOVES_FOR_SCAN):
