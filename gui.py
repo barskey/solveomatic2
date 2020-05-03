@@ -20,7 +20,7 @@ def btn(name, state=False):
 col1 = sg.Col([
     [sg.Frame('Step 1 | Insert cube', [
         [sg.Sizer(200, 1)],
-        [btn('GRAB')],
+        [sg.Button('GRAB', size=(11, 1), key='-GRAB-')],
         [btn('SCAN', True)]
     ], pad=(0, 0), element_justification='center')],
     [sg.Frame('Step 2 | Pick a pattern', [
@@ -195,18 +195,19 @@ while True:
 
             window_colors['-GRAPH-'].draw_image(location=(0, 160), data=vision_params.img_bytes)
 
-    elif button == 'GRAB':
-        print('Gripping...')
-        grip('A', 'c')
-        grip('B', 'c')
-        window['GRAB'].update(text='UN-GRAB', button_color=('white', 'red'))
-        window['SCAN'].update(disabled=False)
-    elif button == 'UN-GRAB':
-        print('Un-gripping...')
-        grip('A', 'o')
-        grip('B', 'o')
-        window['GRIP'].update(text='UN-GRAB', button_color=('white', 'red'))
-        window['SCAN'].update(disabled=False)
+    elif button == '-GRAB-':
+        if button.button_text == 'GRAB':
+            print('Gripping...')
+            grip('A', 'c')
+            grip('B', 'c')
+            window['-GRAB-'].update(text='UN-GRAB', button_color=('white', 'red'))
+            window['SCAN'].update(disabled=False)
+        elif button.button_text == 'UN-GRAB':
+            print('Un-gripping...')
+            grip('A', 'o')
+            grip('B', 'o')
+            window['-GRIP-'].update(text='UN-GRAB', button_color=('white', 'red'))
+            window['SCAN'].update(disabled=True)
     elif button == 'SCAN':
         print('Scanning...')
         scan()
