@@ -48,8 +48,34 @@ MOVES_TO_B = [
 ]
 
 # Lookup table for new orientation after twisting gripper A or B with the cube in the given position
-# e.g. NEW_ORIENTATION_TWISTA['UFD']['+'] gives 'LDR', which the cube will be in after twisting gripper A CW
+# e.g. NEW_ORIENTATION_TWISTA['UFD']['+'] gives 'ULD', which the cube will be in after twisting gripper A CW
 NEW_ORIENTATION_TWISTA = {
+	'UFD': {'+': 'ULD', '-': 'URD'},
+	'URD': {'+': 'UFD', '-': 'UBD'},
+	'UBD': {'+': 'URD', '-': 'ULD'},
+	'ULD': {'+': 'UBD', '-': 'UFD'},
+	'RDL': {'+': 'RFL', '-': 'RBL'},
+	'RBL': {'+': 'RDL', '-': 'RUL'},
+	'RUL': {'+': 'RBL', '-': 'RFL'},
+	'RFL': {'+': 'RUL', '-': 'RDL'},
+	'FDB': {'+': 'FLB', '-': 'FRB'},
+	'FRB': {'+': 'FDB', '-': 'FUB'},
+	'FUB': {'+': 'FRB', '-': 'FLB'},
+	'FLB': {'+': 'FUB', '-': 'FDB'},
+	'DBU': {'+': 'DLU', '-': 'DRU'},
+	'DRU': {'+': 'DBU', '-': 'DFU'},
+	'DFU': {'+': 'DRU', '-': 'DLU'},
+	'DLU': {'+': 'DFU', '-': 'DBU'},
+	'LDR': {'+': 'LBR', '-': 'LFR'},
+	'LFR': {'+': 'LDR', '-': 'LUR'},
+	'LUR': {'+': 'LFR', '-': 'LBR'},
+	'LBR': {'+': 'LUR', '-': 'LDR'},
+	'BDF': {'+': 'BRF', '-': 'BLF'},
+	'BLF': {'+': 'BDF', '-': 'BUF'},
+	'BUF': {'+': 'BLF', '-': 'BRF'},
+	'BRF': {'+': 'BUF', '-': 'BDF'}
+}
+NEW_ORIENTATION_TWISTB = {
 	'UFD': {'+': 'LFR', '-': 'RFL'},
 	'URD': {'+': 'FRB', '-': 'BRF'},
 	'UBD': {'+': 'RBL', '-': 'LBR'},
@@ -76,32 +102,6 @@ NEW_ORIENTATION_TWISTA = {
 	'BRF': {'+': 'URD', '-': 'DRU'}
 }
 
-NEW_ORIENTATION_TWISTB = {
-	'UFD': {'+': 'ULD', '-': 'URD'},
-	'URD': {'+': 'UFD', '-': 'UBD'},
-	'UBD': {'+': 'URD', '-': 'ULD'},
-	'ULD': {'+': 'UBD', '-': 'UFD'},
-	'RDL': {'+': 'RFL', '-': 'RBL'},
-	'RBL': {'+': 'RDL', '-': 'RUL'},
-	'RUL': {'+': 'RBL', '-': 'RFL'},
-	'RFL': {'+': 'RUL', '-': 'RDL'},
-	'FDB': {'+': 'FLB', '-': 'FRB'},
-	'FRB': {'+': 'FDB', '-': 'FUB'},
-	'FUB': {'+': 'FRB', '-': 'FLB'},
-	'FLB': {'+': 'FUB', '-': 'FDB'},
-	'DBU': {'+': 'DLU', '-': 'DRU'},
-	'DRU': {'+': 'DBU', '-': 'DFU'},
-	'DFU': {'+': 'DRU', '-': 'DLU'},
-	'DLU': {'+': 'DFU', '-': 'DBU'},
-	'LDR': {'+': 'LBR', '-': 'LFR'},
-	'LFR': {'+': 'LDR', '-': 'LUR'},
-	'LUR': {'+': 'LFR', '-': 'LBR'},
-	'LBR': {'+': 'LUR', '-': 'LDR'},
-	'BDF': {'+': 'BRF', '-': 'BLF'},
-	'BLF': {'+': 'BDF', '-': 'BUF'},
-	'BUF': {'+': 'BLF', '-': 'BRF'},
-	'BRF': {'+': 'BUF', '-': 'BDF'}
-}
 # Translate table to get from current orientation to representation as if in default position
 # Order of faces is URFDLB - e.g. for face_position['RUL'], R is in default U, F is in default R, U is in default F, etc.
 # so face_position['RUL'][L] gives face B in the default L position
