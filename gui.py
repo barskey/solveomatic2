@@ -196,17 +196,18 @@ while True:
 
             window_colors['-GRAPH-'].draw_image(location=(0, 160), data=vision_params.img_bytes)
     elif button == 'GRAB':
-        print('Gripping...')
-        grip('A', 'c')
-        grip('B', 'c')
-        window['GRAB'].update(text='UN-GRAB', button_color=('white', 'red'))
-        window['SCAN'].update(disabled=False)
-    elif button == 'UN-GRAB':
-        print('Un-gripping...')
-        grip('A', 'l')
-        grip('B', 'l')
-        window['UN-GRAB'].update(text='GRAB', button_color=('green', 'white'))
-        window['SCAN'].update(disabled=True)
+        if window[button].get_text() == 'GRAB':
+            print('Gripping...')
+            grip('A', 'c')
+            grip('B', 'c')
+            window[button].update(text='UN-GRAB', button_color=('white', 'red'))
+            window['SCAN'].update(disabled=False)
+        elif window[button].get_text == 'UN-GRAB':
+            print('Un-gripping...')
+            grip('A', 'l')
+            grip('B', 'l')
+            window[button].update(text='GRAB', button_color=('white', 'green'))
+            window['SCAN'].update(disabled=True)
     elif button == 'SCAN':
         print('Scanning...')
         scan()
