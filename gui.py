@@ -20,7 +20,7 @@ def btn(name, state=False):
 col1 = sg.Col([
     [sg.Frame('Step 1 | Insert cube', [
         [sg.Sizer(200, 1)],
-        [sg.Button('GRAB', size=(11, 1), key='-GRAB-')],
+        [btn('GRAB')],
         [btn('SCAN', True)]
     ], pad=(0, 0), element_justification='center')],
     [sg.Frame('Step 2 | Pick a pattern', [
