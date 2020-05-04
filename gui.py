@@ -1,6 +1,6 @@
 import PySimpleGUI as sg  # Uncomment 1 to run on that framework
 import vision_params
-from lookups import PATTERNS, MOVES_FOR_SCAN
+from lookups import PATTERNS
 from bot import *
 
 # ----- Globals ----- #

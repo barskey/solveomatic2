@@ -6,6 +6,7 @@ from queue import Queue
 import time
 import json
 import calibration
+from lookups import MOVES_FOR_SCAN
 #import board
 #import neopixel
 from adafruit_servokit import ServoKit
