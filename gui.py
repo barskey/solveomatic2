@@ -144,7 +144,7 @@ def solve():
 # ----- Event LOOP Read and display frames, operate the GUI ----- #
 while True:
     button, values = window.read(timeout=50)
-    print (button)
+    #print (button)
     if button in (None, 'Quit', 'Escape:9'):
         break
     elif button == '-SOLVETOBTN-':
@@ -196,6 +196,7 @@ while True:
 
             window_colors['-GRAPH-'].draw_image(location=(0, 160), data=vision_params.img_bytes)
     elif button == 'GRAB':
+        print(window[button].get_text())
         if window[button].get_text() == 'GRAB':
             print('Gripping...')
             grip('A', 'c')
