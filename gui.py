@@ -116,31 +116,6 @@ def colors_layout():
     return layout
 
 
-def scan():
-    for face, moves in MOVES_FOR_SCAN.items():
-        print('Scanning face {}...'.format(face))
-        for move in moves:
-            if len(move) > 0:
-                g = move[0]
-                c = move[1]
-                if c in ['+', '-']:
-                    r = twist(g, c)
-                    print("Result:{}, {}".format(r[0], r[1]))
-                    #if r[0] == 0:
-                        #_cube.set_orientation(g, c)
-                elif c in ['o', 'c', 'l']:
-                    r = grip(g, c)
-                    print("Result:{}, {}".format(r[0], r[1]))
-        print("face colors:<something>")
-        # TODO capture colors here
-        time.sleep(2)
-
-
-def solve():
-    # TODO make solve function
-    pass
-
-
 # ----- Event LOOP Read and display frames, operate the GUI ----- #
 while True:
     button, values = window.read(timeout=50)

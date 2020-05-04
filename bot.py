@@ -9,6 +9,7 @@ import calibration
 #import board
 #import neopixel
 from adafruit_servokit import ServoKit
+import rscube
 
 # led light ring
 #light = neopixel.NeoPixel(board.D10, 8)
@@ -27,7 +28,7 @@ GRIP_CHANNEL = {'A': 1, 'B': 3}
 TWIST_CHANNEL = {'A': 0, 'B': 2}
 SLEEP_TIME = 0.5  # time to sleep after sending servo cmd
 
-cube = None
+cube = rscube.MyCube()
 kit = ServoKit(channels=8)
 scan_index = 0
 # grip_state is letter o, c, or l
@@ -120,6 +121,30 @@ def twist(gripper, dir):
     twist_state[gripper] = new_state
     return [0 if grip_state[other_gripper] == 'o' else 1, dir]  # return 0 if this twist moves cube and changes orientation, else return 1
 
+
+def scan():
+    for face, moves in MOVES_FOR_SCAN.items():
+        print('Scanning face {}...'.format(face))
+        for move in moves:
+            if len(move) > 0:
+                g = move[0]
+                c = move[1]
+                if c in ['+', '-']:
+                    r = twist(g, c)
+                    print("Result:{}, {}".format(r[0], r[1]))
+                    if r[0] == 0:
+                        cube.set_orientation(g, c)
+                elif c in ['o', 'c', 'l']:
+                    r = grip(g, c)
+                    print("Result:{}, {}".format(r[0], r[1]))
+        print("face colors:<something> orientation:{}".format(cube.orientation))
+        # TODO capture colors here
+        time.sleep(2)
+
+
+def solve():
+    # TODO make solve function
+    pass
 
 """
 def scan_move():
