@@ -132,12 +132,13 @@ def scan():
                 c = move[1]
                 if c in ['+', '-']:
                     r = twist(g, c)
-                    print("Result:{}, {}".format(r[0], r[1]))
+                    #print("Result:{}, {}".format(r[0], r[1]))
                     if r[0] == 0:
                         cube.set_orientation(g, c)
+                        print(cube.orientation)
                 elif c in ['o', 'c', 'l']:
                     r = grip(g, c)
-                    print("Result:{}, {}".format(r[0], r[1]))
+                    #print("Result:{}, {}".format(r[0], r[1]))
         print("face colors:<something> orientation:{}".format(cube.orientation))
         # TODO capture colors here
         time.sleep(2)
