@@ -27,6 +27,7 @@ class MyCube(object):
 	@solve_to.setter
 	def solve_to(self, pattern):
 		self._solve_to = PATTERNS[pattern][1]
+		self.set_solve_string()
 
 	def get_abs_site(self, site_r):
 		"""
@@ -44,11 +45,9 @@ class MyCube(object):
 		"""
 		Sets the solve string from kociemba
 		"""
-		cube_def = self.get_cube_def()
-		self._solve_string = solve(cube_def, self._solve_to)
+		self._solve_string = solve(self.get_cube_def(), self._solve_to)
 		#self._solve_string = "R' D2 R' U2 R F2 D B2 U' R F' U R2 D L2 D' B2 R2 B2 U' B2" # debug
-		print (self._solve_string) # debug
-		return self._solve_string
+		#print (self._solve_string) # debug
 
 	def set_cube_colors(self):
 		"""
@@ -64,7 +63,7 @@ class MyCube(object):
 		"""
 		Returns cube_def in the form UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB
 		"""
-		return 'UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB' # debug
+		return '' # debug
 		#return ''.join(str(site) for sitelist in self._cube_colors for site in sitelist)
 
 	def get_up_face(self):
