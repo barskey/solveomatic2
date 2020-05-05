@@ -125,7 +125,7 @@ while True:
     elif button == '-SOLVETOBTN-':
         window_solveto = sg.Window('Solve To', solveto_layout(), size=(480, 320), no_titlebar=True, return_keyboard_events=True)
         solvebtn, solvevals = window_solveto.read(close=True)
-        SOLVETO = solvebtn
+        cube.solve_to = solvebtn
         window['-SOLVETO-'].update(SOLVETO)
         window['-SOLVETOBTN-'].update(image_filename='images/{}'.format(PATTERNS[SOLVETO][0]))
     elif button == 'Calibrate':

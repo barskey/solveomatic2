@@ -45,9 +45,6 @@ class MyCube(object):
 		Sets the solve string from kociemba
 		"""
 		cube_def = self.get_cube_def()
-		print (cube_def) # debug
-		print (self._solve_to) # debug
-		cube_def = 'FLRLURDBLUUBBRLFRDRLFBFDBURLFUDDFBDRDUBBLRLFDUDLFBUFRU' # debug because pics are not in the correct order - hence unsolvable
 		self._solve_string = solve(cube_def, self._solve_to)
 		#self._solve_string = "R' D2 R' U2 R F2 D B2 U' R F' U R2 D L2 D' B2 R2 B2 U' B2" # debug
 		print (self._solve_string) # debug
@@ -67,7 +64,8 @@ class MyCube(object):
 		"""
 		Returns cube_def in the form UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB
 		"""
-		return ''.join(str(site) for sitelist in self._cube_colors for site in sitelist)
+		return 'UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB' # debug
+		#return ''.join(str(site) for sitelist in self._cube_colors for site in sitelist)
 
 	def get_up_face(self):
 		"""
