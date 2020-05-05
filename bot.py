@@ -131,20 +131,26 @@ def twist(gripper, dir):
         return [1, dir]
 
 
+def move_gripper(cmd):
+    """
+    Parses cmd from form of Ao, B-, etc.
+    Performs grip or twist accordingly
+    """
+    gripper = cmd[0]
+    dir = cmd[1]
+    if dir in ['o', 'c']:
+        grip(gripper, dir)
+    elif dir in ['-', '+']:
+        twist(gripper, dir)
+
+
 def scan():
     print('Scanning...')
     for face, moves in MOVES_FOR_SCAN.items():
         print('Scanning face {}...'.format(face))
         for move in moves:
             if len(move) > 0:
-                g = move[0]
-                c = move[1]
-                if c in ['+', '-']:
-                    r = twist(g, c)
-                    #print("Result:{}, {}".format(r[0], r[1]))
-                elif c in ['o', 'c', 'l']:
-                    r = grip(g, c)
-                    #print("Result:{}, {}".format(r[0], r[1]))
+                move_gripper(move)
         print("face colors:<something> orientation:{}".format(cube.orientation))
         # TODO capture colors here
         time.sleep(2)
@@ -163,9 +169,9 @@ def solve():
         elif cmd[1] == '2':  # 2 means twist twice
             dir = ['+', '+']
         moves, to_gripper = cube.get_moves_to_twist_face(face)
-        print('Moving face {} to {}'.format(face, to_gripper))
+        print('Moving face {} to gripper {}'.format(face, to_gripper))
         for m in moves:  # perform moves to move face to returned gripper
-            twist(m[0], m[1])
+            move_gripper(m)
         for t in dir:  # twist face
             print('Twisting face {} {}'.format(face, t))
             twist(to_gripper, t)
