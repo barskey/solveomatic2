@@ -45,6 +45,8 @@ class MyCube(object):
 			self._solve_string = None
 		else:
 			self._solve_string = solve(self.get_cube_def(), self._solveto_pat)
+		print('Cube Def:{}'.format(self.get_cube_def()))
+		print('Solve to:{}'.format(self._solveto_pat))
 		print('Solve string:{}'.format(self._solve_string))  # debug
 		return self._solve_string
 		#print('Solve string:{}'.format(self._solve_string))  # debug

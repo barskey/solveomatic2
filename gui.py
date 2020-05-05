@@ -182,7 +182,9 @@ while True:
             window[button].update(text='GRAB', button_color=('white', 'green'))
             window['SCAN'].update(disabled=True)
     elif button == 'SCAN':
+        window[button].update(disabled=True)
         scan()
+        window[button].update(disabled=False)
         window['SOLVE!'].update(disabled=False)
     elif button == 'SOLVE!':
         solve()
