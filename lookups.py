@@ -35,11 +35,11 @@ MOVES_TO_A = [
 	'',
 	'Bo,A+,Bc,Ao,B+,A-,Ac,Bo,B-,Bc',
 	'Ao,B+,Ac,Bo,B-,Bc',
-	'Ao,B+,B+,Ac'
+	'Ao,B+,Ac,Bo,B-,Bc,Ao,B+,Ac,Bo,B-,Bc'
 ]
 
 MOVES_TO_B = [
-	'Bo,A+,A+,Bc',
+	'Bo,A+,Bc,Ao,A-,Ac,Bo,A+,Bc,Ao,A-,Ac',
 	'Bo,A+,Bc,Ao,A-,Ac',
 	'Ao,B+,Ac,Bo,B-,A+,Bc,Ao,A-,Ac',
 	'',
