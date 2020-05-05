@@ -22,10 +22,11 @@ class MyCube(object):
 
 	@property
 	def solveto_name(self):
-		return self.solveto_name
+		return self._solveto_name
 
 	@solveto_name.setter
 	def solveto_name(self, name):
+		self._solveto_name = name
 		self._solveto_pat = PATTERNS[name][1]
 		print('Solveto pattern:{}'.format(self._solveto_pat))
 		self.set_solve_string()
