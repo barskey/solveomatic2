@@ -12,6 +12,6 @@ class imgThread(Thread):
             vision_params.img_bytes = grab_colors()
 
 
-imgThread()
+#imgThread()
 import gui
 # Start the GUI

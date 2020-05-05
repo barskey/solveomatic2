@@ -4,7 +4,6 @@ from lookups import PATTERNS
 from bot import *
 
 # ----- Globals ----- #
-SOLVETO = 'Solid Cube'
 
 # ----- Window setup ----- #
 sg.theme('Dark Grey')
@@ -25,8 +24,8 @@ col1 = sg.Col([
     ], pad=(0, 0), element_justification='center')],
     [sg.Frame('Step 2 | Pick a pattern', [
         [sg.Sizer(200, 1)],
-        [sg.Button('', image_filename='images/{}'.format(PATTERNS[SOLVETO][0]), border_width=2, key='-SOLVETOBTN-')],
-        [sg.T(SOLVETO, size=(15, 2), font=('Computerfont', 14, ''), justification='center', key='-SOLVETO-')]
+        [sg.Button('', image_filename='images/{}'.format(PATTERNS[cube.solveto_name][0]), border_width=2, key='-SOLVETOBTN-')],
+        [sg.T(cube.solveto_name, size=(15, 2), font=('Computerfont', 14, ''), justification='center', key='-SOLVETO-')]
     ], pad=(0, 0), element_justification='center')]
 ], element_justification='center', pad=(0, 0))
 col2 = sg.Col([
@@ -125,9 +124,9 @@ while True:
     elif button == '-SOLVETOBTN-':
         window_solveto = sg.Window('Solve To', solveto_layout(), size=(480, 320), no_titlebar=True, return_keyboard_events=True)
         solvebtn, solvevals = window_solveto.read(close=True)
-        cube.solve_to = solvebtn
-        window['-SOLVETO-'].update(SOLVETO)
-        window['-SOLVETOBTN-'].update(image_filename='images/{}'.format(PATTERNS[SOLVETO][0]))
+        cube.solveto_name = solvebtn
+        window['-SOLVETO-'].update(cube.solveto_name)
+        window['-SOLVETOBTN-'].update(image_filename='images/{}'.format(PATTERNS[cube.solveto_name][0]))
     elif button == 'Calibrate':
         window_cal = sg.Window('Solve-O-Matic', cal_layout(), size=(480, 320), no_titlebar=True, return_keyboard_events=True)
         while True:
@@ -168,7 +167,6 @@ while True:
                 val = 0.01 if cmd == 'inc' else -0.01
                 new_val = cal.set_property(None, None, param, val)
                 window_colors[param].update(new_val)
-
             window_colors['-GRAPH-'].draw_image(location=(0, 160), data=vision_params.img_bytes)
     elif button == 'GRAB':
         if window[button].get_text() == 'GRAB':

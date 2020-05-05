@@ -6,11 +6,11 @@ class MyCube(object):
 
 	def __init__(self):
 		self._colors = [] # list of colors to match against
-		self._cube_colors = [[None for i in range(9)] for j in range(6)] # letter for corresponding face_color for each site on cube
-		self.solve_to = 'Solid Cube' # string representing cube solve to pattern
-		self._solve_string = None # instructions to solve cube
+		self._cube_colors = [[None for i in range(9)] for j in range(6)]  # letter for corresponding face_color for each site on cube
+		self.solveto_name = 'Solid Cube'  # string representing cube solve to pattern
+		self._solve_string = None  # instructions to solve cube
 
-		self.orientation = 'UFD' # current orientation of the cube, Upface, gripper A Face, gripper B Face
+		self.orientation = 'UFD'  # current orientation of the cube, Upface, gripper A Face, gripper B Face
 
 	@property
 	def orientation(self):
@@ -21,17 +21,18 @@ class MyCube(object):
 		self._orientation = val
 
 	@property
-	def solve_to(self):
-		return self._solve_to
+	def solveto_name(self):
+		return self.solveto_name
 
-	@solve_to.setter
-	def solve_to(self, pattern):
-		self._solve_to = PATTERNS[pattern][1]
+	@solveto_name.setter
+	def solveto_name(self, name):
+		self._solveto_pat = PATTERNS[name][1]
+		print('Solveto pattern:{}'.format(self._solveto_pat))
 		self.set_solve_string()
 
 	def get_abs_site(self, site_r):
 		"""
-		Transposes site numbers given up_face rotation. Returns unrotated site number given rotated site.
+		Transposes site numbers given up_face rotation. Returns un-rotated site number given rotated site.
 		"""
 		return ROT_TABLE[UP_FACE_ROT[self._orientation]][site_r - 1]
 
@@ -45,7 +46,7 @@ class MyCube(object):
 		"""
 		Sets the solve string from kociemba
 		"""
-		self._solve_string = solve(self.get_cube_def(), self._solve_to)
+		self._solve_string = solve(self.get_cube_def(), self._solveto_pat)
 		#self._solve_string = "R' D2 R' U2 R F2 D B2 U' R F' U R2 D L2 D' B2 R2 B2 U' B2" # debug
 		#print (self._solve_string) # debug
 
