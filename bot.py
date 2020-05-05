@@ -166,8 +166,8 @@ def scan():
 
 def solve():
     print('Solving...')
-    s = cube.set_solve_string()
-    for cmd in s:
+    cmds = cube.set_solve_string().split()
+    for cmd in cmds:
         face = cmd[0]
         dir = []
         if len(cmd) == 1:  # no direction, hence +
