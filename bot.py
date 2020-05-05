@@ -147,8 +147,7 @@ def scan():
 
 def solve():
     print('Solving...')
-    cube.set_solve_string()
-    print(cube.get_solve_string())
+    print(cube.set_solve_string())
 
 """
 def scan_move():

@@ -37,18 +37,16 @@ class MyCube(object):
 		"""
 		return ROT_TABLE[UP_FACE_ROT[self._orientation]][site_r - 1]
 
-	def get_solve_string(self):
-		"""
-		Gets the solve string
-		"""
-		return self._solve_string
-
 	def set_solve_string(self):
 		"""
-		Sets the solve string from kociemba
+		Sets and returns the solve string from kociemba
 		"""
-		self._solve_string = solve(self.get_cube_def(), self._solveto_pat)
-		print('Solve string:{}'.format(self._solve_string))  # debug
+		if self.get_cube_def() == self._solveto_pat:
+			self._solve_string = None
+		else:
+			self._solve_string = solve(self.get_cube_def(), self._solveto_pat)
+		return self._solve_string
+		#print('Solve string:{}'.format(self._solve_string))  # debug
 		#self._solve_string = "R' D2 R' U2 R F2 D B2 U' R F' U R2 D L2 D' B2 R2 B2 U' B2" # debug
 
 	def set_cube_colors(self):
