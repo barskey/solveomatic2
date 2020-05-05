@@ -85,6 +85,7 @@ def twist(gripper, dir):
         ERROR [-1, 'error msg'] no move or twist
         SUCCESS [0, 'dir'] twisted cube
         SUCCESS [1, 'dir'] twisted face
+        SUCCESS [2, 'min/max'] calibration move
     """
     other_gripper = 'B' if gripper == 'A' else 'A'
     new_state = None
@@ -120,7 +121,13 @@ def twist(gripper, dir):
 
     set_servo_angle(TWIST_CHANNEL[gripper], cal.twist_pos[gripper][tpk[new_state]])
     twist_state[gripper] = new_state
-    return [0 if grip_state[other_gripper] == 'o' else 1, dir]  # return 0 if this twist moves cube and changes orientation, else return 1
+
+    # return 0 if this twist moves cube and changes orientation, else return 1
+    if grip_state[other_gripper] == 'o':
+        cube.set_orientation(gripper, dir)  # update cube orientation since this means it changed
+        return [0, dir]
+    else:
+        return [1, dir]
 
 
 def scan():
@@ -134,9 +141,6 @@ def scan():
                 if c in ['+', '-']:
                     r = twist(g, c)
                     #print("Result:{}, {}".format(r[0], r[1]))
-                    if r[0] == 0:
-                        cube.set_orientation(g, c)
-                        print(cube.orientation)
                 elif c in ['o', 'c', 'l']:
                     r = grip(g, c)
                     #print("Result:{}, {}".format(r[0], r[1]))
@@ -148,7 +152,22 @@ def scan():
 def solve():
     print('Solving...')
     s = cube.set_solve_string()
-    print('Time to solve...')
+    for cmd in s:
+        face = cmd[0]
+        dir = []
+        if len(cmd) == 1:  # no direction, hence +
+            dir = ['+']
+        elif cmd[1] == '\'':  # apostrophe means -
+            dir = ['-']
+        elif cmd[1] == '2':  # 2 means twist twice
+            dir = ['+', '+']
+        moves, to_gripper = cube.get_moves_to_twist_face(face)
+        print('Moving face {} to {}'.format(face, to_gripper))
+        for m in moves:  # perform moves to move face to returned gripper
+            twist(m[0], m[1])
+        for t in dir:  # twist face
+            print('Twisting face {} {}'.format(face, t))
+            twist(to_gripper, t)
 
 """
 def scan_move():

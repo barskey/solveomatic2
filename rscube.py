@@ -87,16 +87,17 @@ class MyCube(object):
 			self.orientation = NEW_ORIENTATION_TWISTA[self.orientation][dir]
 		elif gripper == 'B':
 			self.orientation = NEW_ORIENTATION_TWISTB[self.orientation][dir]
+		print('New orientation: {}'.format(self.orientation))
 
 	def get_moves_to_twist_face(self, face_to_move, to_gripper = None):
 		"""
 		Determines moves to twist face_to_move to gripper A or B depending on fewest moves.
-		If gripper passed as arg face_to_move will be positioned to input gripper.
+		If gripper passed as arg, face_to_move will be positioned to input gripper.
 		Returns ([moves], chosen gripper)
 		"""
 		moves = None
 		o = self._orientation
-		print (o)
+		#print (o)
 
 		# get current position of face to move
 		face = FACE_POSITION[o].index(FACES[face_to_move])
@@ -114,12 +115,12 @@ class MyCube(object):
 			moves = moves_a
 		elif to_gripper == 'B':
 			moves = moves_b
-		else: # else pick the least number of moves
+		else:  # else pick the least number of moves
 			if len(moves_a) <= len(moves_b):
-				moves = moves_a # moves to gripper A
+				moves = moves_a  # moves to gripper A
 				to_gripper = 'A'
 			else:
-				moves = moves_b # moves to gripper B
+				moves = moves_b  # moves to gripper B
 				to_gripper = 'B'
 		
-		return ((moves, to_gripper))
+		return moves, to_gripper
