@@ -162,6 +162,7 @@ def scan():
         print("face colors:<something> orientation:{}".format(cube.orientation))
         # TODO capture colors here
         time.sleep(2)
+    print('Scanning Done!')
 
 
 def solve():
