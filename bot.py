@@ -179,7 +179,7 @@ def solve():
         elif cmd[1] == '2':  # 2 means twist twice
             dir = ['+', '+']
         moves, to_gripper = cube.get_moves_to_twist_face(face)
-        print('Moving face {} to gripper {}'.format(face, to_gripper))
+        print('{}:Moving face {} to gripper {}'.format(cube.orientation, face, to_gripper))
         for m in moves:  # perform moves to move face to returned gripper
             move_gripper(m)
         for t in dir:  # twist face

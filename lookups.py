@@ -18,33 +18,32 @@ FACES_STR = ['U', 'R', 'F', 'D', 'L', 'B']
 
 # ----------------------------------------------------------------------
 # Lookup table to store moves to put given face to gripper A or B.
-# Relative to cube in default position ordered URFDLB
+# Relative to cube in default UFD position ordered URFDLB
 # e.g. MOVES_TO_A[D] would be the moves to get face currently in position D to gripper A
 #
 # String is comma separated moves, with the following commands:
 # Note: using lower case o and c so it doesn't look like 0
-# A : gripper A (front gripper)
-# B : gripper B (back gripper)
+# A : gripper A (left gripper)
+# B : gripper B (right gripper)
 # o : Open
 # c : Close
 # + : Clockwise turn
 # - : Counter-clockwise turn
 MOVES_TO_A = [
-	'Bo,A-,Bc,Ao,B+,A+,Ac,Bo,B-,Bc',
-	'Ao,B-,Ac,Bo,B+,Bc',
-	'',
-	'Bo,A+,Bc,Ao,B+,A-,Ac,Bo,B-,Bc',
-	'Ao,B+,Ac,Bo,B-,Bc',
-	'Ao,B+,Ac,Bo,B-,Bc,Ao,B+,Ac,Bo,B-,Bc'
-]
-
-MOVES_TO_B = [
-	'Bo,A+,Bc,Ao,A-,Ac,Bo,A+,Bc,Ao,A-,Ac',
-	'Bo,A+,Bc,Ao,A-,Ac',
 	'Ao,B+,Ac,Bo,B-,A+,Bc,Ao,A-,Ac',
+	'Bo,A+,Bc,Ao,A-,Ac',
+	'Bo,A+,Bc,Ao,A-,Ac,Bo,A+,Bc,Ao,A-,Ac',
 	'',
 	'Bo,A-,Bc,Ao,A+,Ac',
-	'Ao,B+,Ac,Bo,B-,A-,Bc,Ao,A+,Ac'
+	'Bo,A+,Bc,Ao,A-,B-,Ac,Bo,B+,Bc'
+]
+MOVES_TO_B = [
+	'Ao,B-,Ac,Bo,B+,A+,Bc,Ao,A-,Ac',
+	'Bo,A-,Bc,Ao,A+,Ac',
+	'',
+	'Ao,B+,Ac,Bo,B-,A+,Bc,Ao,A-,Ac',
+	'Bo,A+,Bc,Ao,A-,Ac',
+	'Bo,A+,Bc,Ao,A-,Ac,Bo,A+,Bc,Ao,A-,Ac'
 ]
 
 # Lookup table for new orientation after twisting gripper A or B with the cube in the given position
