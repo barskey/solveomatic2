@@ -103,7 +103,7 @@ class MyCube(object):
 		o = self._orientation
 		#print (o)
 
-		# get current position of face to move
+		# get actual position of face to move based on current orientation
 		face = FACE_POSITION[o].index(FACES[face_to_move])
 
 		# get the moves to both gripper A and B so they can be compared

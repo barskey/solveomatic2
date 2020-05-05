@@ -168,6 +168,7 @@ def solve():
     print('Solving...')
     cmds = cube.set_solve_string().split()
     for cmd in cmds:
+        print('*** cmd {} ***'.format(cmd))
         face = cmd[0]
         dir = []
         if len(cmd) == 1:  # no direction, hence +
