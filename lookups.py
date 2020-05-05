@@ -30,11 +30,11 @@ FACES_STR = ['U', 'R', 'F', 'D', 'L', 'B']
 # + : Clockwise turn
 # - : Counter-clockwise turn
 MOVES_TO_A = [
-	'Ao,B+,Ac,Bo,B-,A+,Bc,Ao,A-,Ac',
-	'Bo,A+,Bc,Ao,A-,Ac',
-	'Bo,A+,Bc,Ao,A-,Ac,Bo,A+,Bc,Ao,A-,Ac',
+	'Ao,B+,Ac,Bo,B-,Bc,Ao,B+,Ac,Bo,B-,Bc',
+	'Ao,B+,Ac,Bo,B-,Bc',
+	'Bo,A+,Bc,Ao,A-,B+,Ac,Bo,B-,Bc',
 	'',
-	'Bo,A-,Bc,Ao,A+,Ac',
+	'Ao,B-,Ac,Bo,B+,Bc',
 	'Bo,A+,Bc,Ao,A-,B-,Ac,Bo,B+,Bc'
 ]
 MOVES_TO_B = [
