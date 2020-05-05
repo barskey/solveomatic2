@@ -124,6 +124,7 @@ def twist(gripper, dir):
 
 
 def scan():
+    print('Scanning...')
     for face, moves in MOVES_FOR_SCAN.items():
         print('Scanning face {}...'.format(face))
         for move in moves:
@@ -145,7 +146,7 @@ def scan():
 
 
 def solve():
-    # TODO make solve function
+    print('Solving...')
     cube.set_solve_string()
     print(cube.get_solve_string())
 

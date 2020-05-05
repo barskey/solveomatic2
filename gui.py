@@ -182,11 +182,9 @@ while True:
             window[button].update(text='GRAB', button_color=('white', 'green'))
             window['SCAN'].update(disabled=True)
     elif button == 'SCAN':
-        print('Scanning...')
         scan()
         window['SOLVE!'].update(disabled=False)
     elif button == 'SOLVE!':
-        print('Solving...')
         solve()
     #print(vision_params.img_bytes)
     window['-GRAPH-'].draw_image(location=(0, 160), data=vision_params.img_bytes)

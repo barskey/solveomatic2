@@ -48,8 +48,8 @@ class MyCube(object):
 		Sets the solve string from kociemba
 		"""
 		self._solve_string = solve(self.get_cube_def(), self._solveto_pat)
+		print('Solve string:{}'.format(self._solve_string))  # debug
 		#self._solve_string = "R' D2 R' U2 R F2 D B2 U' R F' U R2 D L2 D' B2 R2 B2 U' B2" # debug
-		#print (self._solve_string) # debug
 
 	def set_cube_colors(self):
 		"""
