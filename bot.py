@@ -6,7 +6,7 @@ from queue import Queue
 import time
 import json
 import calibration
-from lookups import MOVES_FOR_SCAN
+from lookups import MOVES_FOR_SCAN, FACES_STR
 #import board
 #import neopixel
 from adafruit_servokit import ServoKit
@@ -71,8 +71,8 @@ def grip(gripper, cmd):
     """
     set_servo_angle(GRIP_CHANNEL[gripper], cal.grip_pos[gripper][cmd])
     grip_state[gripper] = cmd
-    cube.orientation = 'UFD'  # reset orientation when gripping
-    return [0, cmd]
+    print('Grip {}:{}'.format(gripper, cmd))
+    return 0, cmd
 
 
 def twist(gripper, dir):
@@ -93,42 +93,50 @@ def twist(gripper, dir):
 
     if dir == 'min':
         init_servos()  # make sure any new settings have been applied
+        print('Twist {}:{}'.format(gripper, 0))
         set_servo_angle(TWIST_CHANNEL[gripper], 0)
-        return [2, 'min']
+        return 2, 'min'
     if dir == 'max':
         init_servos()  # make sure any new settings have been applied
+        print('Twist {}:{}'.format(gripper, 180))
         set_servo_angle(TWIST_CHANNEL[gripper], 180)
-        return [2, 'max']
+        return 2, 'max'
     if dir == '-':
         if twist_state[gripper] == 0:
-            return [-1, 'Already at min ccw position.']
+            print('Twist {}:already at min position.'.format(gripper))
+            return -1, 'Already at min ccw position.'
         else:
             new_state = twist_state[gripper] - 1
     elif dir == '+':
         if twist_state[gripper] == tpk[-1]:
-            return [-1, 'Already at max cw position.']
+            print('Twist{}: already at max position.'.format(gripper))
+            return -1, 'Already at max cw position.'
         else:
             new_state = twist_state[gripper] + 1
     elif dir in ['ccw', 'center', 'cw']:
         new_state = tp[dir]
     
     if new_state is None:
-        return [-1, 'Could not twist. Unknown error.']
+        print('Twist: Unknown error.')
+        return -1, 'Could not twist. Unknown error.'
 
-    if grip_state[gripper] == 'l': # don't twist if gripper is in load position
-        return [-1, 'Can\'t twist {}. Gripper {} currently in {} position.'.format(gripper, other_gripper, grip_state[gripper])]
-    if grip_state[other_gripper] == 'l': # don't twist if other gripper is in load position
-        return [-1, 'Can\'t twist {}. Gripper {} currently in load position.'.format(gripper, other_gripper)]
+    if grip_state[gripper] == 'l':  # don't twist if gripper is in load position
+        print('Twist {}: Gripper {} in load.'.format(gripper, other_gripper))
+        return -1, 'Can\'t twist {}. Gripper {} in {} position.'.format(gripper, other_gripper, grip_state[gripper])
+    if grip_state[other_gripper] == 'l':  # don't twist if other gripper is in load position
+        print('Twist {}: Gripper {} in {} position.'.format(gripper, other_gripper))
+        return -1, 'Can\'t twist {}. Gripper {} currently in load position.'.format(gripper, other_gripper)
 
+    print('Twist {}:{}'.format(gripper, dir))
     set_servo_angle(TWIST_CHANNEL[gripper], cal.twist_pos[gripper][tpk[new_state]])
     twist_state[gripper] = new_state
 
     # return 0 if this twist moves cube and changes orientation, else return 1
     if grip_state[other_gripper] == 'o':
         cube.set_orientation(gripper, dir)  # update cube orientation since this means it changed
-        return [0, dir]
+        return 0, dir
     else:
-        return [1, dir]
+        return 1, dir
 
 
 def move_gripper(cmd):
@@ -147,7 +155,7 @@ def move_gripper(cmd):
 def scan():
     print('Scanning...')
     for face, moves in MOVES_FOR_SCAN.items():
-        print('Scanning face {}...'.format(face))
+        print('Moving to scan face {}...'.format(FACES_STR[face]))
         for move in moves:
             if len(move) > 0:
                 move_gripper(move)
