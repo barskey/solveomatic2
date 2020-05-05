@@ -183,25 +183,11 @@ def solve():
         for t in dir:  # twist face
             print('Twisting face {} {}'.format(face, t))
             twist(to_gripper, t)
+            grip(to_gripper, 'o')
+            twist(to_gripper, '+' if t == '-' else '-')  # TODO can this just be 'center'?
+            grip(to_gripper, 'c')
 
-"""
-def scan_move():
-    if _scan_index >= len(MOVES_FOR_SCAN):
-        return 'Done!'
 
-    for move in MOVES_FOR_SCAN[_scan_index]:
-        if len(move) > 0:
-            gripper = move[0]
-            cmd = move[1]
-            if cmd in ['+', '-']:
-                result = twist(gripper, cmd)
-                if result[0] == 0:
-                    _cube.set_orientation(gripper, cmd)
-            elif cmd in ['o', 'c', 'l']:
-                result = grip(gripper, cmd)
-    _scan_index = _scan_index + 1
-    return [0, 'Move done']
-"""
 # set up servos and grippers at startup
 init_servos()
 init_grippers()
