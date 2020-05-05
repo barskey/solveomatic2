@@ -71,6 +71,7 @@ def grip(gripper, cmd):
     """
     set_servo_angle(GRIP_CHANNEL[gripper], cal.grip_pos[gripper][cmd])
     grip_state[gripper] = cmd
+    cube.orientation = 'UFD'  # reset orientation when gripping
     return [0, cmd]
 
 

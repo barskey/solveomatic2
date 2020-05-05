@@ -82,12 +82,14 @@ class MyCube(object):
 	def set_orientation(self, gripper, dir):
 		"""
 		Updates cube orientation given a gripper and direction it twisted
+		Ignored if sent cmd to twister to center, ccw or cw directly
 		"""
-		if gripper == 'A':
-			self.orientation = NEW_ORIENTATION_TWISTA[self.orientation][dir]
-		elif gripper == 'B':
-			self.orientation = NEW_ORIENTATION_TWISTB[self.orientation][dir]
-		print('New orientation: {}'.format(self.orientation))
+		if dir in ['+', '-']:
+			if gripper == 'A':
+				self.orientation = NEW_ORIENTATION_TWISTA[self.orientation][dir]
+			elif gripper == 'B':
+				self.orientation = NEW_ORIENTATION_TWISTB[self.orientation][dir]
+			print('New orientation: {}'.format(self.orientation))
 
 	def get_moves_to_twist_face(self, face_to_move, to_gripper = None):
 		"""
