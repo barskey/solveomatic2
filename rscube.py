@@ -66,7 +66,7 @@ class MyCube(object):
 		"""
 		Returns cube_def in the form UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB
 		"""
-		return 'UFUFUBDFDDBFDRDBUFLRLRFRLRLUBUFDBDBDBUFULUBDFRLRLBLRLR'  # debug
+		return 'UFUFUBDFDBDFDRDBUFLRLRFRLRLUBUFDBDBDBUFULUBDFRLRLBLRLR'  # debug
 		#return ''.join(str(site) for sitelist in self._cube_colors for site in sitelist)
 
 	def get_up_face(self):
